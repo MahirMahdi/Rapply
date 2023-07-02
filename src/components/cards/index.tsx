@@ -2,9 +2,17 @@ import React from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { FeatureCardProps, TestimonialCardProps } from "../../interfaces";
+import {
+  FAQCardProps,
+  FeatureCardProps,
+  TestimonialCardProps,
+} from "../../interfaces";
 import useColorMode from "../../hooks/useColorMode";
 import Avatar from "@mui/material/Avatar";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const FeatureCard: React.FC<FeatureCardProps> = ({
   description,
@@ -82,6 +90,40 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
         <Typography>{review}</Typography>
       </Box>
     </div>
+  );
+};
+
+export const FAQCard: React.FC<FAQCardProps> = ({ question, answer }) => {
+  const { mode } = useColorMode();
+
+  return (
+    <Accordion
+      sx={{
+        backgroundColor: mode === "dark" ? "#000" : "inherit",
+        boxShadow: "0px 0px 2px 0px rgba(214, 0, 250, 0.25)",
+        WebkitBoxShadow: "0px 0px 2px 0px rgba(214, 0, 250, 0.25",
+        MozBoxShadow: "0px 0px 2px 0px rgba(214, 0, 250, 0.25)",
+      }}
+      elevation={0}
+    >
+      <AccordionSummary
+        expandIcon={
+          <ExpandMoreIcon
+            sx={{ color: mode === "light" ? "inherit" : "white" }}
+          />
+        }
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography>Accordion 1</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
