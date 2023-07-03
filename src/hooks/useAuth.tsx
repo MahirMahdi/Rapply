@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import { account } from "../utility";
 
-const useAuth = () => {
-  const [user, setUser] = useState({});
+interface User {
+  $id: string;
+  email: string;
+  emailVerification: boolean;
+  name: string;
+  status: boolean;
+}
 
+const useAuth = () => {
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const fetchUser = async () => {
       const response = await account.get();
