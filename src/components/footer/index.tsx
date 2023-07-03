@@ -14,8 +14,10 @@ const FooterInfo: React.FC<FooterInfoProps> = ({ header, data }) => {
       >
         {header}
       </Typography>
-      {data.map((name) => (
-        <Typography sx={{ fontSize: ".85rem" }}>{name}</Typography>
+      {data.map((name, i) => (
+        <Typography key={i} sx={{ fontSize: ".85rem" }}>
+          {name}
+        </Typography>
       ))}
     </Box>
   );
