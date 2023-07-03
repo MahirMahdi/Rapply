@@ -1,46 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useColorMode from "../../hooks/useColorMode";
+import { OutlinedButtonProps } from "../../interfaces";
 
-interface LinkButtonProps {
-  href: string;
-  name: string;
-  placement: string | null;
-  size: string;
-}
-
-interface OutlinedButtonProps {
-  logo: any;
-  href: string;
-  name: string;
-  placement: string | null;
-}
-
-const LinkButton: React.FC<LinkButtonProps> = ({
-  href,
-  name,
-  placement,
-  size,
-}) => {
-  return (
-    <Link
-      to={href}
-      style={{
-        placeSelf: placement === "right" ? "flex-end" : "flex-start",
-      }}
-    >
-      <button className="link-button" id={size === "sm" ? "sm-button" : ""}>
-        {name}
-      </button>
-    </Link>
-  );
-};
-
-const OutlinedButton: React.FC<OutlinedButtonProps> = ({
+export const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   logo,
   href,
   name,
   placement,
 }) => {
+  const { mode } = useColorMode();
   return (
     <Link
       to={href}
@@ -49,13 +18,13 @@ const OutlinedButton: React.FC<OutlinedButtonProps> = ({
         textDecoration: "none",
       }}
     >
-      <button className="outlined-button">
+      <button
+        className="outlined-button"
+        id={mode === "dark" ? "outlined-button-dark" : ""}
+      >
         {logo}
         {name}
       </button>
     </Link>
   );
 };
-
-export default LinkButton;
-export { OutlinedButton };
