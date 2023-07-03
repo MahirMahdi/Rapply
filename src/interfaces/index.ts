@@ -1,7 +1,11 @@
+import React from "react";
+
 export interface FeatureCardProps {
   name: string;
   description: string;
-  logo: any;
+  logo: React.ReactElement;
+  selectCard: React.MouseEventHandler;
+  selected: boolean;
 }
 
 export interface LinkButtonProps {
@@ -12,8 +16,29 @@ export interface LinkButtonProps {
 }
 
 export interface OutlinedButtonProps {
-  logo: any;
+  logo: React.ReactElement;
   href: string;
   name: string;
   placement: string | null;
+}
+
+export interface TestimonialCardProps {
+  username: string;
+  review: string;
+  image: string;
+}
+
+export interface FAQCardProps {
+  question: string;
+  answer: string;
+}
+
+export interface LogoProps {
+  footer: boolean;
+  login: boolean;
+}
+
+export interface FooterInfoProps {
+  header: string;
+  data: string[];
 }
