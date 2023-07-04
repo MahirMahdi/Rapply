@@ -2,6 +2,7 @@ import { AppwriteException } from "@refinedev/appwrite";
 import { AuthBindings } from "@refinedev/core";
 import { v4 as uuidv4 } from "uuid";
 import { account } from "./utility";
+import { AuthActionResponse } from "@refinedev/core/dist/interfaces";
 
 export const authProvider: AuthBindings = {
   login: async ({ email, password }) => {
@@ -9,7 +10,7 @@ export const authProvider: AuthBindings = {
       await account.createEmailSession(email, password);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: "/dashboard",
       };
     } catch (error) {
       const { type, message, code } = error as AppwriteException;
@@ -37,12 +38,16 @@ export const authProvider: AuthBindings = {
       redirectTo: "/login",
     };
   },
-  register: async ({ email, password }) => {
+  register: async ({ email, password, name }) => {
     try {
-      await account.create(uuidv4(), email, password);
+      await account.create(uuidv4(), email, password, name);
+      await account.createEmailSession(email, password);
+      await account.createVerification(
+        `${import.meta.env.VITE_CLIENT_URL}/complete/user-info`
+      );
       return {
         success: true,
-        redirectTo: "/login",
+        redirectTo: "/verify-email",
       };
     } catch (error) {
       const { type, message, code } = error as AppwriteException;
@@ -96,5 +101,49 @@ export const authProvider: AuthBindings = {
     }
 
     return null;
+  },
+  forgotPassword: async ({
+    email,
+    redirect_path,
+  }): Promise<AuthActionResponse> => {
+    try {
+      await account.createRecovery(email, redirect_path);
+      return {
+        success: true,
+        redirectTo: `/recovery-email-sent/email=${email}`,
+      };
+    } catch (error) {
+      const { type, message, code } = error as AppwriteException;
+      return {
+        success: false,
+        error: {
+          message,
+          name: `${code} - ${type}`,
+        },
+      };
+    }
+  },
+  updatePassword: async ({
+    userId,
+    secret,
+    password,
+    confirmPassword,
+  }): Promise<AuthActionResponse> => {
+    try {
+      await account.updateRecovery(userId, secret, password, confirmPassword);
+      return {
+        success: true,
+        redirectTo: "/password-recovered",
+      };
+    } catch (error) {
+      const { type, message, code } = error as AppwriteException;
+      return {
+        success: false,
+        error: {
+          message,
+          name: `${code} - ${type}`,
+        },
+      };
+    }
   },
 };
