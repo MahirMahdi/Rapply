@@ -97,7 +97,7 @@ const ForgotPassword = () => {
           }}
         >
           Remebered password?{" "}
-          <Link to="/signin" className="router-link">
+          <Link to="/login" className="router-link">
             <span
               className="signup-text"
               style={{
