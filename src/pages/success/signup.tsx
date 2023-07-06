@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.webp";
 import Button from "@mui/material/Button";
 import { account } from "../../utility";
 

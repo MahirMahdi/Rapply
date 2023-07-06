@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Logo from "../logo/index";
 import useColorMode from "../../hooks/useColorMode";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.webp";
 
 const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { mode } = useColorMode();
@@ -41,10 +41,10 @@ const AuthLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             justifyContent: "center",
             alignItems: "center",
             padding: { xs: "1.5rem 0", md: "4.5rem 1.5rem" },
-            // boxShadow: {
-            //   xs: "none",
-            //   md: "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
-            // },
+            boxShadow: {
+              xs: "none",
+              md: "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
+            },
           }}
         >
           <Logo login={true} footer={false} />
