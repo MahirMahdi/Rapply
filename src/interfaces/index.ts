@@ -57,3 +57,26 @@ export interface User {
   registration: string;
   status: boolean;
 }
+
+export interface RegisterVariables {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface resetPasswordVariables {
+  userId: string;
+  secret: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface LoginVariables {
+  email: string;
+  password: string;
+}
+
+export interface forgotPasswordVariables {
+  email: string;
+  redirect_path: string;
+}

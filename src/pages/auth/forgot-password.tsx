@@ -7,11 +7,7 @@ import useColorMode from "../../hooks/useColorMode";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useForgotPassword } from "@refinedev/core";
-
-type forgotPasswordVariables = {
-  email: string;
-  redirect_path: string;
-};
+import { forgotPasswordVariables } from "../../interfaces";
 
 const ForgotPassword = () => {
   const { mode } = useColorMode();

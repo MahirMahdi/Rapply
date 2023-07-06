@@ -9,12 +9,7 @@ import { Link } from "react-router-dom";
 import { account } from "../../utility";
 import { useRegister } from "@refinedev/core";
 import AuthLayout from "../../components/auth/layout";
-
-type RegisterVariables = {
-  email: string;
-  password: string;
-  name: string;
-};
+import { RegisterVariables } from "../../interfaces";
 
 const Signup = () => {
   const { mode } = useColorMode();

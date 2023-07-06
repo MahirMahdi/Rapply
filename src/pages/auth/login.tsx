@@ -9,11 +9,7 @@ import Button from "@mui/material/Button";
 import { FcGoogle } from "react-icons/fc";
 import { useLogin } from "@refinedev/core";
 import { account } from "../../utility";
-
-type LoginVariables = {
-  email: string;
-  password: string;
-};
+import { LoginVariables } from "../../interfaces";
 
 const Login = () => {
   const { mode } = useColorMode();

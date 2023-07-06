@@ -6,13 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useUpdatePassword } from "@refinedev/core";
 import { useLocation } from "react-router-dom";
-
-type resetPasswordVariables = {
-  userId: string;
-  secret: string;
-  password: string;
-  confirmPassword: string;
-};
+import { resetPasswordVariables } from "../../interfaces";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
