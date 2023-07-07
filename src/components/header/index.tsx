@@ -8,21 +8,35 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useGetIdentity } from "@refinedev/core";
 import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
-import React, { useContext } from "react";
-import { ColorModeContext } from "../../contexts/color-mode";
-
-type IUser = {
-  id: number;
-  name: string;
-  avatar: string;
-};
+import React, { useEffect, useState } from "react";
+import useColorMode from "../../hooks/useColorMode";
+import { generatePhotoId } from "../../pages/profile/complete-profile";
+import { storage } from "../../utility";
+import { User } from "../../interfaces/index";
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky = true,
 }) => {
-  const { mode, setMode } = useContext(ColorModeContext);
+  const { mode, setMode } = useColorMode();
+  const [photo, setPhoto] = useState("");
+  const { data: user } = useGetIdentity<User>();
 
-  const { data: user } = useGetIdentity<IUser>();
+  const getUserPhoto = async () => {
+    try {
+      const response = storage.getFilePreview(
+        import.meta.env.VITE_APPWRITE_BUCKET_ID,
+        generatePhotoId(user?.$id ?? "")
+      );
+
+      setPhoto(response.href);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getUserPhoto();
+  }, [user]);
 
   return (
     <AppBar position={sticky ? "sticky" : "relative"}>
@@ -49,7 +63,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
               {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
             </IconButton>
 
-            {(user?.avatar || user?.name) && (
+            {(photo || user?.name) && (
               <Stack
                 direction="row"
                 gap="16px"
@@ -69,7 +83,15 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                     {user?.name}
                   </Typography>
                 )}
-                <Avatar src={user?.avatar} alt={user?.name} />
+                <Avatar
+                  src={photo}
+                  alt={user?.name}
+                  sx={{
+                    bgcolor: mode === "light" ? "#323130" : "white",
+                  }}
+                >
+                  {user?.name.slice(0, 1)}
+                </Avatar>
               </Stack>
             )}
           </Stack>
