@@ -8,10 +8,10 @@ import f3 from "../assets/f3.jpg";
 import fd1 from "../assets/fd1.jpg";
 import fd2 from "../assets/fd2.jpg";
 import fd3 from "../assets/fd3.jpg";
-import arthur from "../assets/arthur.jpg";
-import lena from "../assets/lena.jpg";
-import olivia from "../assets/olivia.jpg";
-import ethan from "../assets/ethan.jpg";
+import arthur from "../assets/arthur.webp";
+import lena from "../assets/lena.webp";
+import olivia from "../assets/olivia.webp";
+import ethan from "../assets/ethan.webp";
 
 class Features {
   name: string;
