@@ -80,3 +80,19 @@ export interface forgotPasswordVariables {
   email: string;
   redirect_path: string;
 }
+
+export interface personalInfo {
+  first_name: string;
+  last_name: string;
+  job_title: string;
+  phone_number: string;
+  email: string;
+  location: string;
+}
+
+export interface socials {
+  portfolio: string;
+  linkedin: string;
+  twitter: string;
+  github: string;
+}
