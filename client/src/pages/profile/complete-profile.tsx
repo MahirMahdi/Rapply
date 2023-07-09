@@ -15,6 +15,7 @@ import ProgressStepper from "../../components/profile/stepper";
 import { FileUploadButton } from "../../components/buttons";
 import { useGetIdentity } from "@refinedev/core";
 import { User } from "../../interfaces";
+import { v4 as uuidv4 } from "uuid";
 
 const CompleteProfileInfo = () => {
   const location = useLocation();
@@ -70,23 +71,24 @@ const CompleteProfileInfo = () => {
       try {
         await account.updateVerification(userId, secret);
       } catch (error) {
-        console.log(error);
+        return error;
       }
     }
   };
 
   const checkIfProfileIsCompleted = async () => {
-    const data = await database.getDocument(
-      import.meta.env.VITE_APPWRITE_DATABASE_ID,
-      import.meta.env.VITE_APPWRITE_PERSONAL_INFO_COLLECTION_ID,
-      user?.$id ?? ""
-    );
+    try {
+      await database.getDocument(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_PERSONAL_INFO_COLLECTION_ID,
+        user?.$id ?? ""
+      );
 
-    if (data) {
       navigate("/profile");
+      return;
+    } catch (error) {
+      return;
     }
-
-    return;
   };
 
   const isStepOptional = (step: number) => {
@@ -125,7 +127,7 @@ const CompleteProfileInfo = () => {
     });
   };
 
-  const checkRequiredFields = () => {
+  const validateRequiredFields = () => {
     const fields = [
       personalInfo.first_name,
       personalInfo.last_name,
@@ -144,6 +146,8 @@ const CompleteProfileInfo = () => {
 
   const submitInformation = async () => {
     try {
+      const photoId = uuidv4();
+      const resumeId = uuidv4();
       await database.createDocument(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APPWRITE_PERSONAL_INFO_COLLECTION_ID,
@@ -161,20 +165,21 @@ const CompleteProfileInfo = () => {
       resume &&
         (await storage.createFile(
           import.meta.env.VITE_APPWRITE_BUCKET_ID,
-          generateResumeId(user?.$id ?? ""),
+          resumeId,
           resume
         ));
 
       photo &&
         (await storage.createFile(
           import.meta.env.VITE_APPWRITE_BUCKET_ID,
-          generatePhotoId(user?.$id ?? ""),
+          photoId,
           photo
         ));
 
+      await account.updatePrefs({ resumeId: resumeId, photoId: photoId });
       return navigate("/profile-completed");
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -304,7 +309,7 @@ const CompleteProfileInfo = () => {
             </Box>
           </Box>
           <Box sx={{ display: "grid", rowGap: ".5rem" }}>
-            <InputLabel>Location</InputLabel>
+            <InputLabel>Location(Optional)</InputLabel>
             <TextField
               color="secondary"
               type="text"
@@ -466,7 +471,7 @@ const CompleteProfileInfo = () => {
   }, [user]);
 
   useEffect(() => {
-    checkRequiredFields();
+    validateRequiredFields();
   }, [personalInfo, resume]);
 
   return (

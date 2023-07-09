@@ -10,7 +10,7 @@ export const authProvider: AuthBindings = {
       await account.createEmailSession(email, password);
       return {
         success: true,
-        redirectTo: "/dashboard",
+        redirectTo: "/profile",
       };
     } catch (error) {
       const { type, message, code } = error as AppwriteException;
@@ -43,7 +43,7 @@ export const authProvider: AuthBindings = {
       await account.create(uuidv4(), email, password, name);
       await account.createEmailSession(email, password);
       await account.createVerification(
-        `${import.meta.env.VITE_CLIENT_URL}/complete/user-info`
+        `${import.meta.env.VITE_CLIENT_URL}/complete/profile`
       );
       return {
         success: true,

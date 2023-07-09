@@ -43,6 +43,11 @@ export interface FooterInfoProps {
   data: string[];
 }
 
+export interface Prefs {
+  resumeId: string;
+  photoId: string;
+}
+
 export interface User {
   $createdAt: string;
   $id: string;
@@ -53,7 +58,7 @@ export interface User {
   passwordUpdate: string;
   phone: string;
   phoneVerification: boolean;
-  prefs: object;
+  prefs: Prefs;
   registration: string;
   status: boolean;
 }
@@ -81,7 +86,7 @@ export interface forgotPasswordVariables {
   redirect_path: string;
 }
 
-export interface personalInfo {
+export interface personalInformation {
   first_name: string;
   last_name: string;
   job_title: string;
@@ -90,7 +95,7 @@ export interface personalInfo {
   location: string;
 }
 
-export interface socials {
+export interface socialLinks {
   portfolio: string;
   linkedin: string;
   twitter: string;

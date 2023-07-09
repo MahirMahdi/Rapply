@@ -1,7 +1,7 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import {
   FAQCardProps,
   FeatureCardProps,
@@ -85,7 +85,9 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
       <Box sx={{ display: "grid", rowGap: "1rem" }}>
         <Box sx={{ display: "flex", alignItems: "center", columnGap: "1rem" }}>
           <Avatar src={image} alt={username} />
-          <Typography>{username}</Typography>
+          <Typography sx={{ fontWeight: "600", fontSize: "1.1rem" }}>
+            {username}
+          </Typography>
         </Box>
         <Typography>{review}</Typography>
       </Box>
@@ -115,13 +117,10 @@ export const FAQCard: React.FC<FAQCardProps> = ({ question, answer }) => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>Accordion 1</Typography>
+        <Typography>{question}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </Typography>
+        <Typography>{answer}</Typography>
       </AccordionDetails>
     </Accordion>
   );

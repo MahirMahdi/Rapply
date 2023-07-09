@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import CloudUpload from "@mui/icons-material/CloudUpload";
 import ImageIcon from "@mui/icons-material/Image";
 import CloseIcon from "@mui/icons-material/Close";
+import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 
 export const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   logo,
@@ -66,11 +67,17 @@ export const FileUploadButton: React.FC<any> = ({
   handleFileChange,
   file,
   name,
+  type,
 }) => {
   return (
     <label htmlFor="file-input">
       <input
         type="file"
+        accept={
+          name !== "Upload Resume" || name !== "Resume"
+            ? ".jpg,.jpeg,.png,.gif"
+            : "*"
+        }
         id="file-input"
         style={{ display: "none" }}
         onChange={(e) => handleFileChange(e)}
@@ -79,7 +86,15 @@ export const FileUploadButton: React.FC<any> = ({
         sx={{ backgroundColor: "#6505B0" }}
         variant="contained"
         component="span"
-        startIcon={!file ? <CloudUpload /> : <ImageIcon />}
+        startIcon={
+          !file ? (
+            <CloudUpload />
+          ) : name === "Upload Resume" || name === "Resume" ? (
+            <DocumentScannerIcon />
+          ) : (
+            <ImageIcon />
+          )
+        }
       >
         {file ? `${file.name}` : name}
       </Button>

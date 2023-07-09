@@ -12,13 +12,7 @@ import routerBindings, {
   CatchAllNavigate,
   NavigateToResource,
 } from "@refinedev/react-router-v6";
-import {
-  BrowserRouter,
-  Navigate,
-  Outlet,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { authProvider } from "./authProvider";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
@@ -38,9 +32,8 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/inter/900.css";
 import Home from "./pages/home";
-import Dashboard from "./pages/dashboard";
 import OAuthRedirect from "./components/auth/oauthRedirect";
-import UserInfo from "./pages/user-info";
+import CompleteProfileInfo from "./pages/profile/complete-profile";
 import SignupSuccess from "./pages/success/signup";
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/signup";
@@ -49,6 +42,14 @@ import RecoveryEmailSuccess from "./pages/success/recovery-email";
 import PasswordRecovered from "./pages/success/password-recovered";
 import ResetPassword from "./pages/auth/reset-password";
 import VerifyUser from "./components/auth/verifyUser";
+import ProfileCompleted from "./pages/success/profile-completed";
+import { Title } from "./components/title";
+import Profile from "./pages/profile/profile";
+import PersonIcon from "@mui/icons-material/Person";
+import DescriptionIcon from "@mui/icons-material/Description";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import { ThemedSiderV2 } from "./components/themedLayout/sider";
+import CoverLetter from "./pages/cover-letter/cover-letter";
 
 function App() {
   return (
@@ -59,18 +60,38 @@ function App() {
         <RefineSnackbarProvider>
           <Refine
             dataProvider={dataProvider(appwriteClient, {
-              databaseId: "database",
+              databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
             })}
             liveProvider={liveProvider(appwriteClient, {
-              databaseId: "database",
+              databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
             })}
             authProvider={authProvider}
             notificationProvider={notificationProvider}
             routerProvider={routerBindings}
             resources={[
               {
-                name: "dashboard",
-                list: "/dashboard",
+                name: "profile",
+                list: "/profile",
+                icon: <PersonIcon />,
+                options: {
+                  label: "My Profile",
+                },
+              },
+              {
+                name: "generate",
+                list: "/generate-cover-letter",
+                icon: <DescriptionIcon />,
+                options: {
+                  label: "Cover Letter",
+                },
+              },
+              {
+                name: "track",
+                list: "/track-applications",
+                icon: <TimelineIcon />,
+                options: {
+                  label: "Track Applications",
+                },
               },
             ]}
             options={{
@@ -89,19 +110,33 @@ function App() {
               >
                 <Route path="/verify-email" element={<SignupSuccess />} />
                 <Route path="/oauth/redirect" element={<OAuthRedirect />} />
-                <Route path="/complete/user-info" element={<UserInfo />} />
+                <Route
+                  path="/complete/profile"
+                  element={<CompleteProfileInfo />}
+                />
+                <Route
+                  path="/profile-completed"
+                  element={<ProfileCompleted />}
+                />
               </Route>
               <Route
                 element={
                   <Authenticated fallback={<CatchAllNavigate to="/login" />}>
-                    <ThemedLayoutV2 Header={() => <Header sticky />}>
+                    <ThemedLayoutV2
+                      Sider={ThemedSiderV2}
+                      Title={({ collapsed }) => <Title collapsed={collapsed} />}
+                      Header={() => <Header sticky />}
+                    >
                       <Outlet />
                     </ThemedLayoutV2>
                   </Authenticated>
                 }
               >
-                <Route path="dashboard">
-                  <Route index element={<Dashboard />} />
+                <Route path="profile">
+                  <Route index element={<Profile />} />
+                </Route>
+                <Route path="generate">
+                  <Route index element={<CoverLetter />} />
                 </Route>
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
@@ -109,7 +144,7 @@ function App() {
                 element={
                   <Authenticated fallback={<Outlet />}>
                     <VerifyUser>
-                      <NavigateToResource resource="dashboard" />
+                      <NavigateToResource resource="profile" />
                     </VerifyUser>
                   </Authenticated>
                 }

@@ -3,8 +3,11 @@ import { Box } from "@mui/material";
 import logo from "../../assets/logo.webp";
 import Button from "@mui/material/Button";
 import { account } from "../../utility";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupSuccess = () => {
+  const navigate = useNavigate();
   const sendAgain = async () => {
     try {
       await account.createVerification(
@@ -14,6 +17,17 @@ const SignupSuccess = () => {
       console.log(error);
     }
   };
+
+  const verify = async () => {
+    const response = await account.get();
+    if (response.emailVerification) {
+      navigate("/profile");
+    }
+  };
+
+  useEffect(() => {
+    verify();
+  }, []);
 
   return (
     <Box

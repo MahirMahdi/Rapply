@@ -1,8 +1,3 @@
-import {
-  DarkTheme as DefaultDarkTheme,
-  LightTheme as DefaultLightTheme,
-} from "@refinedev/mui";
-
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const LightTheme = createTheme({
@@ -19,7 +14,19 @@ const LightTheme = createTheme({
           ...(ownerState.variant === "text" && {
             color: "#403f40",
           }),
+          color: "#fff",
+          ":hover": {
+            background: "#b334c7",
+            color: "white",
+          },
         }),
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#6505B0",
+        },
       },
     },
   },
@@ -29,11 +36,13 @@ const DarkTheme = createTheme({
   palette: {
     background: {
       default: "#121212",
-      paper: "#323130",
     },
     text: {
       primary: "#fff",
       secondary: "#d9d7d7",
+    },
+    action: {
+      disabled: "#919294",
     },
   },
   components: {
@@ -41,6 +50,30 @@ const DarkTheme = createTheme({
       styleOverrides: {
         root: {
           color: "#fff",
+          ":hover": {
+            background: "#b334c7",
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          background: "rgba(0, 0, 0,1)",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "rgba(173,171,175,0.5)",
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#6505B0",
         },
       },
     },
