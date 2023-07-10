@@ -198,7 +198,7 @@ const ResumeFormatOne = () => {
                   fontSize: { xs: ".75rem", sm: "1rem" },
                 }}
               >
-                Walden Schlmdit
+                Walden Schmidt
               </Typography>
               <Typography
                 sx={{
@@ -292,6 +292,7 @@ const ResumeFormatOne = () => {
                         rowGap: { xs: ".1rem", sm: ".2rem" },
                       }}
                     >
+                      {/* max 200 chars*/}
                       <li>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Nullam pharetra in lorem at laoreet. Donec hendrerit
