@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useUpdatePassword } from "@refinedev/core";
 import { useLocation } from "react-router-dom";
-import { resetPasswordVariables } from "../../interfaces";
+import { ResetPasswordVariables } from "../../interfaces";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -16,7 +16,7 @@ const ResetPassword = () => {
   const userId = searchParams.get("userId") ?? "";
   const secret = searchParams.get("secret") ?? "";
   const { mutate: updatePassword } =
-    useUpdatePassword<resetPasswordVariables>();
+    useUpdatePassword<ResetPasswordVariables>();
 
   const handleResetPassword = async () => {
     try {

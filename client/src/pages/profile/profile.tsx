@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useGetIdentity } from "@refinedev/core";
 import { User } from "../../interfaces/index";
 import useColorMode from "../../hooks/useColorMode";
-import { socialLinks, personalInformation } from "../../interfaces/index";
+import { SocialLinks, PersonalInformation } from "../../interfaces/index";
 import { account, database, storage } from "../../utility";
 import { generateResumeId, generatePhotoId } from "./complete-profile";
 import {
@@ -263,7 +263,7 @@ const Profile = () => {
     } else {
       const all_keys = Object.keys(
         updatedPersonalInfo
-      ) as (keyof personalInformation)[];
+      ) as (keyof PersonalInformation)[];
       const result = all_keys.filter(
         (key) => updatedPersonalInfo[key] !== personalInfo[key]
       );
@@ -299,7 +299,7 @@ const Profile = () => {
   };
 
   const checkSocialsUpdateStatus = () => {
-    const all_keys = Object.keys(updatedSocials) as (keyof socialLinks)[];
+    const all_keys = Object.keys(updatedSocials) as (keyof SocialLinks)[];
     const result = all_keys.filter(
       (key) => updatedSocials[key] !== socials[key]
     );

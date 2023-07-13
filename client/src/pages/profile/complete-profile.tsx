@@ -135,7 +135,9 @@ const CompleteProfileInfo = () => {
       resume,
     ];
 
-    const result = fields.filter((field) => field === null || field === "");
+    const result = fields.filter(
+      (field) => field === null || field.length === 0
+    );
 
     if (result.length > 0) {
       setDisableCondition(true);
