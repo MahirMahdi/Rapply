@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import useColorMode from "../../hooks/useColorMode";
 import { generatePhotoId } from "../../pages/profile/complete-profile";
 import { storage } from "../../utility";
-import { User } from "../../interfaces/index";
+import { User } from "../../interfaces";
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky = true,
@@ -25,7 +25,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
     try {
       const response = storage.getFilePreview(
         import.meta.env.VITE_APPWRITE_BUCKET_ID,
-        generatePhotoId(user?.$id ?? "")
+        user?.prefs.photoId ?? ""
       );
 
       setPhoto(response.href);
