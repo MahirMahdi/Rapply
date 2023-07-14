@@ -2,6 +2,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const LightTheme = createTheme({
   palette: {
+    secondary: { main: "#6505b0" },
     text: {
       primary: "#403f40",
       secondary: "#535253",
@@ -14,7 +15,9 @@ const LightTheme = createTheme({
           ...(ownerState.variant === "text" && {
             color: "#403f40",
           }),
-          color: "#fff",
+          ...(ownerState.variant === "contained" && {
+            color: "#fff",
+          }),
           ":hover": {
             background: "#b334c7",
             color: "white",
@@ -25,7 +28,7 @@ const LightTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: "#6505B0",
+          backgroundColor: "#323130",
         },
       },
     },
@@ -34,6 +37,7 @@ const LightTheme = createTheme({
 
 const DarkTheme = createTheme({
   palette: {
+    secondary: { main: "#6505b0" },
     background: {
       default: "#121212",
     },
@@ -73,7 +77,14 @@ const DarkTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: "#6505B0",
+          backgroundColor: "#000",
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
         },
       },
     },
