@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const CoverLetter = () => {
+const ApplicationTracker = () => {
   return (
     <Box
       sx={{
@@ -15,4 +15,4 @@ const CoverLetter = () => {
   );
 };
 
-export default CoverLetter;
+export default ApplicationTracker;
