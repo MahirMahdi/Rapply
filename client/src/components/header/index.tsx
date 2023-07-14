@@ -87,7 +87,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                   src={photo}
                   alt={user?.name}
                   sx={{
-                    bgcolor: mode === "light" ? "#323130" : "white",
+                    bgcolor: mode === "light" ? "#9BA4B4" : "#6505b0",
+                    color: "#fff",
                   }}
                 >
                   {user?.name.slice(0, 1)}
