@@ -1,46 +1,66 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { Box, Avatar, Typography, Divider } from "@mui/material";
+import { Box, Typography, Divider, Button } from "@mui/material";
 import useColorMode from "../../hooks/useColorMode";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-const intro = [
-  {
-    icon: <LocationOnIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
-    label: "Tokyo, Japan",
-  },
-  {
-    icon: <EmailIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
-    label: "dummyuser@email.com",
-  },
-  {
-    icon: <SmartphoneIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
-    label: "+3243123213",
-  },
-  {
-    icon: <LinkedInIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
-    label: "in/dummyuser",
-  },
-];
-const experience = ["", ""];
-const projects = ["", ""];
-const references = ["", ""];
-const achievements = ["", ""];
+const dummy_experience = ["", "", ""];
+const dummy_projects = ["", ""];
+const dummy_education = ["", ""];
 
-const ResumeTemplateTwo = () => {
+const ResumeTemplateTwo: React.FC<any> = ({
+  education,
+  skills,
+  contact,
+  experience,
+  projects,
+  summary,
+}) => {
   const { mode } = useColorMode();
   const contentRef = useRef(null);
 
-  //   useEffect(() => {
-  //     console.log(document.body.scrollHeight);
-  //   }, []);
+  const intro = [
+    {
+      icon: <LocationOnIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
+      label: contact.location.length === 0 ? "Tokyo, Japan" : contact.location,
+    },
+    {
+      icon: <EmailIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
+      label: contact.email.length === 0 ? "dummyuser@email.com" : contact.email,
+    },
+    {
+      icon: <SmartphoneIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
+      label:
+        contact.phone_number.length === 0
+          ? "+3243123213"
+          : contact.phone_number,
+    },
+    {
+      icon: <LinkedInIcon sx={{ fontSize: { xs: ".4rem", sm: ".65rem" } }} />,
+      label: contact.linkedin.length === 0 ? "in/dummyuser" : contact.linkedin,
+    },
+  ];
+
   return (
     <>
       <Box sx={{ maxWidth: "100vw" }}>
+        <Button
+          sx={{
+            width: "100%",
+            backgroundColor: "#6505B0",
+            color: "white",
+            mt: "1.5rem",
+            mb: "1.5rem",
+          }}
+          color="secondary"
+          onClick={() => convertToPdf(contentRef.current, contact.name)}
+        >
+          Download PDF
+        </Button>
         <Box
           sx={{
             maxWidth: "612px",
@@ -48,7 +68,6 @@ const ResumeTemplateTwo = () => {
             display: "flex",
             flexDirection: "column",
             backgroundColor: mode === "light" ? "#fff" : "#121212",
-            border: "1px solid gray",
             padding: { xs: ".75rem", sm: "1rem", lg: "1.5rem" },
           }}
           ref={contentRef}
@@ -70,7 +89,7 @@ const ResumeTemplateTwo = () => {
                 placeSelf: "center",
               }}
             >
-              Isabella Davis
+              {contact.name.length === 0 ? "Isabella Davis" : contact.name}
             </Typography>
             <Box
               sx={{
@@ -132,12 +151,9 @@ const ResumeTemplateTwo = () => {
                 fontSize: { xs: ".3rem", sm: ".45rem" },
               }}
             >
-              {/*max 375 chars*/}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              pharetra in lorem at laoreet. Donec hendrerit libero eget est
-              tempor, quis tempus arcu elementum. In elementum elit at dui
-              tristique feugiat. Mauris convallis, mi at mattis malesuada, neque
-              nulla volutpat dolor, hendrerit faucibus eros nibh ut nunc.
+              {summary?.description.length === 0
+                ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra in lorem at laoreet. Donec hendrerit libero eget est tempor, quis tempus arcu elementum. In elementum elit at dui tristique feugiat. Mauris convallis, mi at mattis malesuada, neque nulla volutpat dolor, hendrerit faucibus eros nibh ut nunc."
+                : summary?.description}
             </Typography>
           </Box>
           <Divider
@@ -168,75 +184,117 @@ const ResumeTemplateTwo = () => {
                 backgroundColor: mode === "light" ? "#121212" : "#fff",
               }}
             />
-            {experience.map((item, i) => (
-              <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box>
-                    <Typography
+            {experience.length !== 0
+              ? experience.map((ex: any, i: number) => (
+                  <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
+                    <Box
                       sx={{
-                        fontFamily: "'Source Sans Pro', sans-serif",
-                        fontWeight: "700",
-                        fontSize: { xs: ".4rem", sm: ".6rem" },
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                       }}
                     >
-                      Marketing Director
-                    </Typography>
-                    <Typography
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "700",
+                            fontSize: { xs: ".35rem", sm: ".6rem" },
+                          }}
+                        >
+                          {ex.position}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "600",
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
+                          }}
+                        >
+                          {ex.organization}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "'Source Sans Pro', sans-serif",
+                          fontWeight: "600",
+                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                        }}
+                      >
+                        {ex.from} - {ex.to}
+                      </Typography>
+                    </Box>
+                    <Box
                       sx={{
+                        mt: { xs: ".1rem", sm: ".35rem" },
                         fontFamily: "'Source Sans Pro', sans-serif",
-                        fontWeight: "600",
-                        fontSize: { xs: ".35rem", sm: ".5rem" },
+                        fontWeight: "300",
+                        fontSize: { xs: ".25rem", sm: ".45rem" },
                       }}
                     >
-                      ABC Company
-                    </Typography>
+                      {ex.description}
+                    </Box>
                   </Box>
-                  <Typography
-                    sx={{
-                      fontFamily: "'Source Sans Pro', sans-serif",
-                      fontWeight: "600",
-                      fontSize: { xs: ".35rem", sm: ".5rem" },
-                    }}
-                  >
-                    2016-2019
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    mt: { xs: ".1rem", sm: ".35rem" },
-                    fontFamily: "'Source Sans Pro', sans-serif",
-                    fontWeight: "300",
-                    fontSize: { xs: ".3rem", sm: ".45rem" },
-                  }}
-                >
-                  {/* max 200 chars*/}
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pharetra in lorem at laoreet. Donec hendrerit libero
-                    eget est tempor, quis tempus arcu elementum. In elementum
-                    elit at dui tristique.
-                  </li>
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pharetra in lorem at laoreet. Donec hendrerit libero
-                    eget est tempor, quis tempus arcu elementum. In elementum
-                    elit at dui tristique.
-                  </li>
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pharetra in lorem at laoreet. Donec hendrerit libero
-                    eget est tempor, quis tempus arcu elementum. In elementum
-                    elit at dui tristique.
-                  </li>
-                </Box>
-              </Box>
-            ))}
+                ))
+              : dummy_experience.map((item, i) => (
+                  <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "700",
+                            fontSize: { xs: ".35rem", sm: ".6rem" },
+                          }}
+                        >
+                          Marketing Director
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "600",
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
+                          }}
+                        >
+                          ABC Company
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "'Source Sans Pro', sans-serif",
+                          fontWeight: "600",
+                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                        }}
+                      >
+                        2016-2019
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: { xs: ".1rem", sm: ".35rem" },
+                        fontFamily: "'Source Sans Pro', sans-serif",
+                        fontWeight: "300",
+                        fontSize: { xs: ".25rem", sm: ".45rem" },
+                      }}
+                    >
+                      It is a long established fact that a reader will be
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using 'Content here, content here', making it
+                      look like readable English. Many desktop publishing
+                      packages and web page editors now use Lorem Ipsum as their
+                      default model text, and a search for 'lorem ipsum' will
+                      uncover many web sites still in their infancy.
+                    </Box>
+                  </Box>
+                ))}
           </Box>
           <Divider
             sx={{
@@ -266,75 +324,117 @@ const ResumeTemplateTwo = () => {
                 backgroundColor: mode === "light" ? "#121212" : "#fff",
               }}
             />
-            {projects.map((item, i) => (
-              <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box>
-                    <Typography
+            {projects.length !== 0
+              ? projects.map((project: any, i: number) => (
+                  <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
+                    <Box
                       sx={{
-                        fontFamily: "'Source Sans Pro', sans-serif",
-                        fontWeight: "700",
-                        fontSize: { xs: ".4rem", sm: ".6rem" },
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                       }}
                     >
-                      Portfolio Project
-                    </Typography>
-                    <Typography
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "700",
+                            fontSize: { xs: ".35rem", sm: ".6rem" },
+                          }}
+                        >
+                          {project.name}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "600",
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
+                          }}
+                        >
+                          {project.organization}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "'Source Sans Pro', sans-serif",
+                          fontWeight: "600",
+                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                        }}
+                      >
+                        {project.from} - {project.to}
+                      </Typography>
+                    </Box>
+                    <Box
                       sx={{
+                        mt: { xs: ".25rem", sm: ".35rem" },
                         fontFamily: "'Source Sans Pro', sans-serif",
-                        fontWeight: "600",
-                        fontSize: { xs: ".35rem", sm: ".5rem" },
+                        fontWeight: "300",
+                        fontSize: { xs: ".25rem", sm: ".45rem" },
                       }}
                     >
-                      Marketing Analyst
-                    </Typography>
+                      {project.description}
+                    </Box>
                   </Box>
-                  <Typography
-                    sx={{
-                      fontFamily: "'Source Sans Pro', sans-serif",
-                      fontWeight: "600",
-                      fontSize: { xs: ".35rem", sm: ".5rem" },
-                    }}
-                  >
-                    2016-2019
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    mt: { xs: ".25rem", sm: ".35rem" },
-                    fontFamily: "'Source Sans Pro', sans-serif",
-                    fontWeight: "300",
-                    fontSize: { xs: ".3rem", sm: ".45rem" },
-                  }}
-                >
-                  {/* max 200 chars*/}
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pharetra in lorem at laoreet. Donec hendrerit libero
-                    eget est tempor, quis tempus arcu elementum. In elementum
-                    elit at dui tristique.
-                  </li>
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pharetra in lorem at laoreet. Donec hendrerit libero
-                    eget est tempor, quis tempus arcu elementum. In elementum
-                    elit at dui tristique.
-                  </li>
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nullam pharetra in lorem at laoreet. Donec hendrerit libero
-                    eget est tempor, quis tempus arcu elementum. In elementum
-                    elit at dui tristique.
-                  </li>
-                </Box>
-              </Box>
-            ))}
+                ))
+              : dummy_projects.map((item, i) => (
+                  <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "700",
+                            fontSize: { xs: ".35rem", sm: ".6rem" },
+                          }}
+                        >
+                          Portfolio Project
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "600",
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
+                          }}
+                        >
+                          Marketing Analyst
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "'Source Sans Pro', sans-serif",
+                          fontWeight: "600",
+                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                        }}
+                      >
+                        2016-2019
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        mt: { xs: ".25rem", sm: ".35rem" },
+                        fontFamily: "'Source Sans Pro', sans-serif",
+                        fontWeight: "300",
+                        fontSize: { xs: ".25rem", sm: ".45rem" },
+                      }}
+                    >
+                      It is a long established fact that a reader will be
+                      distracted by the readable content of a page when looking
+                      at its layout. The point of using Lorem Ipsum is that it
+                      has a more-or-less normal distribution of letters, as
+                      opposed to using 'Content here, content here', making it
+                      look like readable English. Many desktop publishing
+                      packages and web page editors now use Lorem Ipsum as their
+                      default model text, and a search for 'lorem ipsum' will
+                      uncover many web sites still in their infancy.
+                    </Box>
+                  </Box>
+                ))}
           </Box>
           <Divider
             sx={{
@@ -364,52 +464,95 @@ const ResumeTemplateTwo = () => {
                 backgroundColor: mode === "light" ? "#121212" : "#fff",
               }}
             />
-            {references.map((item, i) => (
-              <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box>
-                    <Typography
+            {education.length !== 0
+              ? education.map((degree: any, i: number) => (
+                  <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
+                    <Box
                       sx={{
-                        fontFamily: "'Source Sans Pro', sans-serif",
-                        fontWeight: "700",
-                        fontSize: { xs: ".4rem", sm: ".6rem" },
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                       }}
                     >
-                      Bachelor of Business Administration (BBA) in Marketing
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "'Source Sans Pro', sans-serif",
-                        fontWeight: "600",
-                        fontSize: { xs: ".35rem", sm: ".5rem" },
-                      }}
-                    >
-                      Northwest University
-                    </Typography>
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "700",
+                            fontSize: { xs: ".35rem", sm: ".6rem" },
+                          }}
+                        >
+                          {degree.degree}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "600",
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
+                          }}
+                        >
+                          {degree.school}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "'Source Sans Pro', sans-serif",
+                          fontWeight: "600",
+                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          placeSelf: "center",
+                        }}
+                      >
+                        {degree.from} - {degree.to}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Typography
-                    sx={{
-                      fontFamily: "'Source Sans Pro', sans-serif",
-                      fontWeight: "600",
-                      fontSize: { xs: ".35rem", sm: ".5rem" },
-                      placeSelf: "center",
-                    }}
-                  >
-                    2016-2019
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
+                ))
+              : dummy_education.map((item, i) => (
+                  <Box key={i} sx={{ mt: { xs: ".1rem", sm: ".35rem" } }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "700",
+                            fontSize: { xs: ".35rem", sm: ".6rem" },
+                          }}
+                        >
+                          Bachelor of Business Administration (BBA) in Marketing
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Source Sans Pro', sans-serif",
+                            fontWeight: "600",
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
+                          }}
+                        >
+                          Northwest University
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "'Source Sans Pro', sans-serif",
+                          fontWeight: "600",
+                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          placeSelf: "center",
+                        }}
+                      >
+                        2016-2019
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
           </Box>
           <Divider
             sx={{
-              mt: { xs: ".25rem", sm: ".35rem" },
+              mt: { xs: ".1rem", sm: ".35rem" },
               backgroundColor: "rgba(255,255,255,.75)",
             }}
           />
@@ -417,7 +560,7 @@ const ResumeTemplateTwo = () => {
             sx={{
               width: "100%",
               height: "max-content",
-              mt: { xs: ".25rem", sm: ".35rem" },
+              mt: { xs: ".1rem", sm: ".35rem" },
             }}
           >
             <Typography
@@ -436,31 +579,52 @@ const ResumeTemplateTwo = () => {
                 backgroundColor: mode === "light" ? "#121212" : "#fff",
               }}
             />
-            <Box sx={{ mt: { xs: ".25rem", sm: ".35rem" } }}>
-              <Typography
-                sx={{
-                  fontFamily: "'Source Sans Pro', sans-serif",
-                  fontWeight: "600",
-                  fontSize: { xs: ".3rem", sm: ".5rem" },
-                }}
-              >
-                Digital Marketing, Market Research, SEO, Email Marketing,
-                Strategic Planning, Marketing Automation, Brand Strategy and
-                Positioning, Marketing Campaign Management, Social Media
-                Marketing, Content Creation and Copywriting
-              </Typography>
+            <Box
+              sx={{
+                mt: { xs: ".1rem", sm: ".35rem" },
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {skills !== 0 ? (
+                <Typography
+                  sx={{
+                    fontFamily: "'Source Sans Pro', sans-serif",
+                    fontWeight: "600",
+                    fontSize: { xs: ".25rem", sm: ".5rem" },
+                  }}
+                >
+                  {skills.map((skill: any, i: number) => {
+                    if (i === skills.length - 1) {
+                      return skill.skill;
+                    } else {
+                      return `${skill.skill}, `;
+                    }
+                  })}
+                </Typography>
+              ) : (
+                <Typography
+                  sx={{
+                    fontFamily: "'Source Sans Pro', sans-serif",
+                    fontWeight: "600",
+                    fontSize: { xs: ".25rem", sm: ".5rem" },
+                  }}
+                >
+                  Digital Marketing, Market Research, SEO, Email Marketing,
+                  Strategic Planning, Marketing Automation, Brand Strategy and
+                  Positioning, Marketing Campaign Management, Social Media
+                  Marketing, Content Creation and Copywriting
+                </Typography>
+              )}
             </Box>
           </Box>
         </Box>
       </Box>
-      <button onClick={() => convertToPdf(contentRef.current)}>
-        Generate PDF
-      </button>
     </>
   );
 };
 
-const convertToPdf = async (containerElement: any) => {
+const convertToPdf = async (containerElement: any, name: string) => {
   try {
     html2canvas(containerElement).then((canvas) => {
       const imgData = canvas.toDataURL("image/png", 1.0);
@@ -480,7 +644,7 @@ const convertToPdf = async (containerElement: any) => {
       const pdfHeight = pdfWidth / containerAspectRatio;
 
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("document.pdf");
+      pdf.save(`${name}.pdf`);
     });
   } catch (error) {
     console.error("Error converting to PDF:", error);
