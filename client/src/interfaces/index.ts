@@ -69,7 +69,7 @@ export interface RegisterVariables {
   name: string;
 }
 
-export interface resetPasswordVariables {
+export interface ResetPasswordVariables {
   userId: string;
   secret: string;
   password: string;
@@ -81,12 +81,12 @@ export interface LoginVariables {
   password: string;
 }
 
-export interface forgotPasswordVariables {
+export interface ForgotPasswordVariables {
   email: string;
   redirect_path: string;
 }
 
-export interface personalInformation {
+export interface PersonalInformation {
   first_name: string;
   last_name: string;
   job_title: string;
@@ -95,9 +95,76 @@ export interface personalInformation {
   location: string;
 }
 
-export interface socialLinks {
+export interface SocialLinks {
   portfolio: string;
   linkedin: string;
   twitter: string;
   github: string;
+}
+
+export interface Degree {
+  id: string;
+  userId: string;
+  school: string;
+  from: any;
+  to: any;
+  degree: string;
+}
+
+export interface Employment {
+  id: string;
+  userId: string;
+  organization: string;
+  from: any;
+  to: any;
+  position: string;
+  description: string;
+  tag: string;
+}
+
+export interface Project {
+  id: string;
+  userId: string;
+  name: string;
+  from: any;
+  to: any;
+  description: string;
+  organization: string;
+  tag: string;
+}
+
+export interface Achievement {
+  id: string;
+  userId: string;
+  name: string;
+  year: any;
+  organization: string;
+}
+
+export interface Reference {
+  userId: string;
+  id: string;
+  name: string;
+  email: string;
+  job_title: string;
+  phone_number: string;
+  organization: string;
+}
+
+export interface Skills {
+  id: string;
+  userId: string;
+  skill: string;
+}
+
+export interface Languages {
+  id: string;
+  userId: string;
+  language: string;
+}
+
+export interface Summary {
+  id: string;
+  userId: string;
+  description: string;
 }
