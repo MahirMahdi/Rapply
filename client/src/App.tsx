@@ -50,6 +50,9 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import { ThemedSiderV2 } from "./components/themedLayout/sider";
 import CoverLetter from "./pages/cover-letter/cover-letter";
+import ResumeBuilder from "./pages/resume/resume-builder";
+import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
+import ApplicationTracker from "./pages/application-tracker/application-tracker";
 
 function App() {
   return (
@@ -87,10 +90,18 @@ function App() {
               },
               {
                 name: "track",
-                list: "/track-applications",
+                list: "/application-tracker",
                 icon: <TimelineIcon />,
                 options: {
-                  label: "Track Applications",
+                  label: "Application Tracker",
+                },
+              },
+              {
+                name: "build",
+                list: "/resume-builder",
+                icon: <DocumentScannerIcon />,
+                options: {
+                  label: "Resume Builder",
                 },
               },
             ]}
@@ -135,9 +146,15 @@ function App() {
                 <Route path="profile">
                   <Route index element={<Profile />} />
                 </Route>
-                <Route path="generate">
-                  <Route index element={<CoverLetter />} />
-                </Route>
+                <Route
+                  path="/generate-cover-letter"
+                  element={<CoverLetter />}
+                />
+                <Route
+                  path="/application-tracker"
+                  element={<ApplicationTracker />}
+                />
+                <Route path="/resume-builder" element={<ResumeBuilder />} />
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
               <Route

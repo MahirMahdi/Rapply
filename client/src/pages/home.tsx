@@ -25,16 +25,30 @@ import FooterInfo from "../components/footer";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { useLogin } from "@refinedev/core";
+import { LoginVariables } from "../interfaces";
 
 type Anchor = "top";
 
 const Home = () => {
   const { mode, setMode } = useColorMode();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const [selectedFeature, setSelectedFeature] = useState("Quick Fill");
+  const [selectedFeature, setSelectedFeature] = useState("Resume Builder");
   const [navState, setNavState] = useState({
     top: false,
   });
+  const { mutate: login } = useLogin<LoginVariables>();
+
+  const handleLogin = async () => {
+    try {
+      login({
+        email: "dummyuser@email.com",
+        password: "abcd1234",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const paddingX = {
     xs: "1rem",
@@ -233,6 +247,7 @@ const Home = () => {
               }}
             >
               <Button
+                href="/login"
                 variant="contained"
                 sx={{
                   width: "fit-content",
@@ -317,8 +332,8 @@ const Home = () => {
               fontSize: { xs: ".85rem", lg: "1.15rem" },
             }}
           >
-            Track applications, generate tailored cover letters, and apply with
-            one-click using our powerful chrome extension.
+            Track applications, generate tailored cover letters, and build
+            professional resumes with our cutting-edge resume builder.
           </Typography>
           <Box
             sx={{
@@ -328,11 +343,15 @@ const Home = () => {
               columnGap: "1.5rem",
             }}
           >
-            <Button variant="contained" sx={{ backgroundColor: "#6505b0" }}>
+            <Button
+              onClick={handleLogin}
+              variant="contained"
+              sx={{ backgroundColor: "#6505b0" }}
+            >
               Try Rapply Demo
             </Button>
             <OutlinedButton
-              href="/login"
+              href="#"
               name="Watch Video"
               logo={<PlayCircleIcon />}
               placement="right"

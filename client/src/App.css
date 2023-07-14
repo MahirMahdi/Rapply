@@ -7,6 +7,15 @@
   );
 }
 
+.text-area {
+  display: list-item;
+  margin-left: 1em;
+  outline: none;
+}
+.text-area textarea {
+  display: list-item;
+}
+
 aside {
   display: none;
 }
@@ -173,6 +182,15 @@ aside {
 footer {
   max-width: 100vw;
   padding: 2rem;
+}
+
+.select-template {
+  border: 1px solid rgb(233, 224, 224);
+}
+
+.select-template:hover {
+  cursor: pointer;
+  opacity: 0.65;
 }
 
 @media (max-width: 599px) {
