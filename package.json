@@ -1,0 +1,70 @@
+{
+  "name": "rapply",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@fontsource-variable/lexend": "^5.0.3",
+    "@fontsource/inter": "^5.0.3",
+    "@fontsource/poppins": "^5.0.3",
+    "@mui/icons-material": "^5.8.3",
+    "@mui/lab": "^5.0.0-alpha.85",
+    "@mui/material": "^5.8.6",
+    "@mui/x-data-grid": "^6.6.0",
+    "@react-pdf/renderer": "^3.1.12",
+    "@refinedev/appwrite": "^6.0.0",
+    "@refinedev/cli": "^2.7.2",
+    "@refinedev/core": "^4.26.2",
+    "@refinedev/inferencer": "^4.3.0",
+    "@refinedev/kbar": "^1.1.0",
+    "@refinedev/mui": "^5.7.0",
+    "@refinedev/react-hook-form": "^4.1.2",
+    "@refinedev/react-router-v6": "^4.1.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "openai": "^3.3.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-hook-form": "^7.30.0",
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.8.1",
+    "react-ts-typewriter": "^0.1.8-b",
+    "swiper": "^9.4.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.40.2",
+    "@types/node": "^18.16.2",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/uuid": "^9.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^4.7.4",
+    "vite": "^4.3.1"
+  },
+  "scripts": {
+    "start": "refine dev",
+    "build": "tsc && refine build",
+    "preview": "refine start",
+    "refine": "refine"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
