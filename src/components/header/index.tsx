@@ -10,9 +10,8 @@ import { useGetIdentity } from "@refinedev/core";
 import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
 import React, { useEffect, useState } from "react";
 import useColorMode from "../../hooks/useColorMode";
-import { generatePhotoId } from "../../pages/profile/complete-profile";
-import { storage } from "../../utility";
 import { User } from "../../interfaces";
+import { storage } from "../../utility";
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky = true,

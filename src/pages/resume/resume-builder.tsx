@@ -25,9 +25,8 @@ import {
   Skills,
   Languages,
   Reference,
-  Summary,
 } from "../../interfaces";
-import CustomAlert from "../../components/resume/customAlert";
+import CustomSnackbar from "../../components/resume/customSnackbar";
 import ResumeTemplateOne from "./template-one";
 import ResumeTemplateTwo from "./template-two";
 import { FileUploadButton } from "../../components/buttons";
@@ -37,9 +36,6 @@ import {
   useCreate,
   useDelete,
   useUpdate,
-  useOne,
-  useList,
-  HttpError,
 } from "@refinedev/core";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -1554,7 +1550,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromEducationList(degree.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -1776,7 +1777,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromExperienceList(employment.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -1996,7 +2002,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromExperienceList(project.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -2177,7 +2188,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromSkillsList(skill.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -2305,7 +2321,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromLanguagesList(language.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -2469,7 +2490,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromAchievementsList(achievement.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -2705,7 +2731,12 @@ const ResumeBuilder = () => {
                   }}
                   onClick={() => removeFromReferencesList(reference.id)}
                 >
-                  <DeleteIcon color="error" sx={{ fontSize: "1.25rem" }} />
+                  <DeleteIcon
+                    sx={{
+                      fontSize: "1.25rem",
+                      color: mode === "light" ? "#121212" : "#fff",
+                    }}
+                  />
                 </IconButton>
                 <IconButton
                   sx={{
@@ -2908,13 +2939,15 @@ const ResumeBuilder = () => {
             color="secondary"
             sx={{
               display: { lg: "none" },
-              borderRadius: "7.5px",
+              borderRadius: "15px",
               backgroundColor: "#6505b0",
               color: "#fff",
               outlineColor: "#6505b0",
               "& .MuiSvgIcon-root": {
                 color: "#fff",
               },
+              width: { xs: "fit-content" },
+              height: { xs: "2rem" },
             }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -2986,13 +3019,13 @@ const ResumeBuilder = () => {
           </Box>
         </Box>
       )}
-      <CustomAlert
+      <CustomSnackbar
         type="alert"
         open={educationAlert}
         close={closeEducationAlert}
         message={"Sorry. You cannot add more than two degrees in this format."}
       />
-      <CustomAlert
+      <CustomSnackbar
         type="alert"
         open={experienceAndProjectsAlert}
         close={closeExperienceAndProjectsAlert}
@@ -3000,7 +3033,7 @@ const ResumeBuilder = () => {
           "Sorry. You cannot add more than five experience/projects in this format."
         }
       />
-      <CustomAlert
+      <CustomSnackbar
         type="alert"
         open={achievementsAlert}
         close={closeAchievementsAlert}
@@ -3008,7 +3041,7 @@ const ResumeBuilder = () => {
           "Sorry. You cannot add more than two achievements in this format."
         }
       />
-      <CustomAlert
+      <CustomSnackbar
         type="alert"
         open={referencesAlert}
         close={closeReferencesAlert}
@@ -3016,13 +3049,13 @@ const ResumeBuilder = () => {
           "Sorry. You cannot add more than two references in this format."
         }
       />
-      <CustomAlert
+      <CustomSnackbar
         type="alert"
         open={skillsAlert}
         close={closeSkillsAlert}
         message={"Sorry. You cannot add more than ten skills in this format."}
       />
-      <CustomAlert
+      <CustomSnackbar
         type="alert"
         open={languagesAlert}
         close={closeLanguagesAlert}

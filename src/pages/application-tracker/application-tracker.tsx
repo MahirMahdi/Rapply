@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 
 const ApplicationTracker = () => {
@@ -10,7 +11,7 @@ const ApplicationTracker = () => {
         placeItems: "center",
       }}
     >
-      <Typography variant="h4">Coming Soon...</Typography>
+      <Typography variant="h3">Coming soon...</Typography>
     </Box>
   );
 };

@@ -351,6 +351,8 @@ const Home = () => {
               Try Rapply Demo
             </Button>
             <OutlinedButton
+              active={null}
+              onClick={null}
               href="#"
               name="Watch Video"
               logo={<PlayCircleIcon />}

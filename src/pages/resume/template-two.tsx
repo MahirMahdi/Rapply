@@ -63,7 +63,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
         </Button>
         <Box
           sx={{
-            maxWidth: "612px",
+            width: "612px",
             height: "792px",
             display: "flex",
             flexDirection: "column",

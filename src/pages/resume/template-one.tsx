@@ -43,8 +43,8 @@ const ResumeTemplateOne: React.FC<any> = ({
         </Button>
         <Box
           sx={{
-            maxWidth: "612px",
-            maxheight: "792px",
+            width: "612px",
+            height: "792px",
             display: "flex",
           }}
           ref={contentRef}

@@ -551,12 +551,4 @@ const CompleteProfileInfo = () => {
   );
 };
 
-export const generateResumeId = (id: string) => {
-  return id.slice(0, 24) + "-resume";
-};
-
-export const generatePhotoId = (id: string) => {
-  return id.slice(0, 24) + "-photo";
-};
-
 export default CompleteProfileInfo;

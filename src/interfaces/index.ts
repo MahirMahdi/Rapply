@@ -20,6 +20,8 @@ export interface OutlinedButtonProps {
   href: string;
   name: string;
   placement: string | null;
+  active: boolean | null;
+  onClick: any;
 }
 
 export interface TestimonialCardProps {
@@ -93,6 +95,7 @@ export interface PersonalInformation {
   phone_number: string;
   email: string;
   location: string;
+  tokens: string;
 }
 
 export interface SocialLinks {

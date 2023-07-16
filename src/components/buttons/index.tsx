@@ -15,6 +15,8 @@ export const OutlinedButton: React.FC<OutlinedButtonProps> = ({
   href,
   name,
   placement,
+  active,
+  onClick,
 }) => {
   const { mode } = useColorMode();
   return (
@@ -27,7 +29,12 @@ export const OutlinedButton: React.FC<OutlinedButtonProps> = ({
     >
       <button
         className="outlined-button"
+        style={{
+          backgroundColor: active ? "#6505B0" : "inherit",
+          color: active ? "#fff" : mode === "light" ? "#323130" : "#fff",
+        }}
         id={mode === "dark" ? "outlined-button-dark" : ""}
+        onClick={onClick}
       >
         {logo}
         {name}

@@ -33,6 +33,16 @@ const LightTheme = createTheme({
         },
       },
     },
+    // MuiTableRow: {
+    //   styleOverrides: {
+    //     root: {
+    //       cursor: "pointer",
+    //       ":hover": {
+    //         backgroundColor: "#DBC4F0",
+    //       },
+    //     },
+    //   },
+    // },
   },
 });
 
@@ -57,6 +67,9 @@ const DarkTheme = createTheme({
           color: "#fff",
           ":hover": {
             background: "#b334c7",
+          },
+          ":disabled": {
+            backgroundColor: "#000",
           },
         },
       },
@@ -89,6 +102,32 @@ const DarkTheme = createTheme({
         },
       },
     },
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          "& .MuiSwitch-track": {
+            backgroundColor: "#000",
+          },
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderColor: "#52616B",
+        },
+      },
+    },
+    // MuiTableRow: {
+    //   styleOverrides: {
+    //     root: {
+    //       cursor: "pointer",
+    //       ":hover": {
+    //         backgroundColor: "#937DC2",
+    //       },
+    //     },
+    //   },
+    // },
   },
 });
 

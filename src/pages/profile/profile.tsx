@@ -7,6 +7,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  Icon,
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { useGetIdentity } from "@refinedev/core";
@@ -14,7 +15,6 @@ import { User } from "../../interfaces/index";
 import useColorMode from "../../hooks/useColorMode";
 import { SocialLinks, PersonalInformation } from "../../interfaces/index";
 import { account, database, storage } from "../../utility";
-import { generateResumeId, generatePhotoId } from "./complete-profile";
 import {
   EditButton,
   SaveButton,
@@ -23,6 +23,7 @@ import {
 } from "../../components/buttons/index";
 import { Link, useNavigate } from "react-router-dom";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { FaCoins } from "react-icons/fa";
 
 const Profile = () => {
   const { mode } = useColorMode();
@@ -35,6 +36,7 @@ const Profile = () => {
     phone_number: "",
     email: "",
     location: "",
+    tokens: "",
   });
   const [socials, setSocials] = useState({
     portfolio: "",
@@ -47,7 +49,7 @@ const Profile = () => {
   const [resumeUrl, setResumeUrl] = useState("");
   const [editIntro, setEditIntro] = useState(false);
   const [editPersonalInfo, setEditPersonalInfo] = useState(false);
-  const [updatedPersonalInfo, setUpdatedPersonalInfo] = useState({
+  const [updatedPersonalInfo, setUpdatedPersonalInfo] = useState<any>({
     first_name: "",
     last_name: "",
     job_title: "",
@@ -119,6 +121,7 @@ const Profile = () => {
           job_title,
           location,
           phone_number,
+          tokens,
           ...rest
         } = response;
         setPersonalInfo({
@@ -128,6 +131,7 @@ const Profile = () => {
           email: email,
           location: location,
           phone_number: phone_number,
+          tokens: tokens,
         });
       } catch (error) {
         return error;
@@ -173,7 +177,7 @@ const Profile = () => {
   };
 
   const checkData = (data: string | undefined) => {
-    if (data === "" || data === undefined) {
+    if (data?.length === 0 || data === undefined) {
       return "Unavailable";
     }
 
@@ -256,7 +260,9 @@ const Profile = () => {
       updatedPersonalInfo.email,
     ];
 
-    const result = fields.filter((field) => field === null || field === "");
+    const result = fields.filter(
+      (field) => field === null || field.length === 0
+    );
 
     if (result.length > 0) {
       return true;
@@ -638,7 +644,31 @@ const Profile = () => {
             </Typography>
           </Box>
         </Box>
-        <EditButton handleClick={() => changeIntroState("edit")} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: { xs: "0", sm: "2rem" },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              columnGap: ".25rem",
+            }}
+          >
+            <Icon color="secondary" sx={{ fontSize: ".85rem" }}>
+              <FaCoins />
+            </Icon>
+            <Typography
+              sx={{ fontSize: ".85rem", fontFamily: "'Poppins', sans-serif;" }}
+            >
+              {personalInfo.tokens}
+            </Typography>
+          </Box>
+          <EditButton handleClick={() => changeIntroState("edit")} />
+        </Box>
       </>
     ),
     edit: (
