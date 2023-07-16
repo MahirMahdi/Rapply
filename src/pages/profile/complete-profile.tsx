@@ -41,7 +41,6 @@ const CompleteProfileInfo = () => {
     github: "",
   });
   const [photo, setPhoto] = useState<File | null>(null);
-  const [resume, setResume] = useState<File | null>(null);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const [disableCondition, setDisableCondition] = useState(true);
 
@@ -58,11 +57,6 @@ const CompleteProfileInfo = () => {
       reader.readAsDataURL(selectedFile);
     }
     setPhoto(selectedFile || null);
-  };
-
-  const uploadResume = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    setResume(selectedFile || null);
   };
 
   const verifyUser = async () => {
@@ -132,7 +126,6 @@ const CompleteProfileInfo = () => {
       personalInfo.first_name,
       personalInfo.last_name,
       personalInfo.job_title,
-      resume,
     ];
 
     const result = fields.filter(
@@ -164,13 +157,6 @@ const CompleteProfileInfo = () => {
         socialLinks
       );
 
-      resume &&
-        (await storage.createFile(
-          import.meta.env.VITE_APPWRITE_BUCKET_ID,
-          resumeId,
-          resume
-        ));
-
       photo &&
         (await storage.createFile(
           import.meta.env.VITE_APPWRITE_BUCKET_ID,
@@ -178,7 +164,7 @@ const CompleteProfileInfo = () => {
           photo
         ));
 
-      await account.updatePrefs({ resumeId: resumeId, photoId: photoId });
+      await account.updatePrefs({ photoId: photoId });
       return navigate("/profile-completed");
     } catch (error) {
       return error;
@@ -326,14 +312,6 @@ const CompleteProfileInfo = () => {
               }
             />
           </Box>
-          <Box sx={{ width: { sm: "50%" }, display: "grid", rowGap: ".5rem" }}>
-            <InputLabel>Upload Resume</InputLabel>
-            <FileUploadButton
-              name="Resume"
-              handleFileChange={uploadResume}
-              file={resume}
-            />
-          </Box>
         </>
       ),
     },
@@ -474,7 +452,7 @@ const CompleteProfileInfo = () => {
 
   useEffect(() => {
     validateRequiredFields();
-  }, [personalInfo, resume]);
+  }, [personalInfo]);
 
   return (
     <Box

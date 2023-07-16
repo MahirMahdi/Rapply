@@ -45,8 +45,6 @@ const Profile = () => {
     github: "",
   });
   const [photo, setPhoto] = useState("");
-  const [resume, setResume] = useState("");
-  const [resumeUrl, setResumeUrl] = useState("");
   const [editIntro, setEditIntro] = useState(false);
   const [editPersonalInfo, setEditPersonalInfo] = useState(false);
   const [updatedPersonalInfo, setUpdatedPersonalInfo] = useState<any>({
@@ -64,10 +62,8 @@ const Profile = () => {
     twitter: "",
     github: "",
   });
-  const [editResume, setEditResume] = useState(false);
   const [updatedPhoto, setUpdatedPhoto] = useState<File | null>(null);
   const [updatedPhotoUrl, setUpdatedPhotoUrl] = useState<string | null>(null);
-  const [updatedResume, setUpdatedResume] = useState<File | null>(null);
 
   const checkIfProfileIsCompleted = async () => {
     try {
@@ -148,28 +144,6 @@ const Profile = () => {
         );
 
         setPhoto(response.href);
-      } catch (error) {
-        return error;
-      }
-    }
-  };
-
-  const getUserResume = async () => {
-    if (user) {
-      try {
-        const response = storage.getFileDownload(
-          import.meta.env.VITE_APPWRITE_BUCKET_ID,
-          user.prefs.resumeId
-        );
-
-        setResumeUrl(response.href);
-
-        const data = storage.getFilePreview(
-          import.meta.env.VITE_APPWRITE_BUCKET_ID,
-          user.prefs.resumeId
-        );
-
-        setResume(data.href);
       } catch (error) {
         return error;
       }
@@ -329,56 +303,6 @@ const Profile = () => {
     } catch (error) {
       return error;
     }
-  };
-
-  const changeResumeState = (state: string) => {
-    if (state === "edit") {
-      setEditResume(true);
-    } else {
-      setEditResume(false);
-    }
-  };
-
-  const uploadResume = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    setUpdatedResume(selectedFile || null);
-  };
-
-  const checkResumeUpdateStatus = (): boolean => {
-    return updatedResume === null;
-  };
-
-  const updateResume = async () => {
-    const prefs = user?.prefs;
-    const resumeId = uuidv4();
-
-    try {
-      if (prefs?.resumeId !== "") {
-        updatedResume &&
-          (await storage.deleteFile(
-            import.meta.env.VITE_APPWRITE_BUCKET_ID,
-            prefs?.resumeId ?? ""
-          )) &&
-          (await storage.createFile(
-            import.meta.env.VITE_APPWRITE_BUCKET_ID,
-            resumeId,
-            updatedResume
-          ));
-        await account.updatePrefs({ ...prefs, resumeId: resumeId });
-      } else {
-        updatedResume &&
-          (await storage.createFile(
-            import.meta.env.VITE_APPWRITE_BUCKET_ID,
-            resumeId,
-            updatedResume
-          ));
-        await account.updatePrefs({ ...prefs, resumeId: resumeId });
-      }
-    } catch (error) {
-      return error;
-    }
-
-    setEditResume(false);
   };
 
   const personal_info = [
@@ -1007,67 +931,6 @@ const Profile = () => {
     ),
   };
 
-  const resume_states = {
-    read: (
-      <>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            mt: "2rem",
-          }}
-        >
-          <Link to={resumeUrl}>
-            <Avatar
-              src={resume}
-              variant="rounded"
-              sx={{
-                width: { xs: "6rem", sm: "7.5rem" },
-                height: { xs: "7.5rem", sm: "9rem" },
-              }}
-            />
-          </Link>
-        </Box>
-        <EditButton handleClick={() => changeResumeState("edit")} />
-      </>
-    ),
-    edit: (
-      <>
-        <CloseButton handleClick={() => changeResumeState("read")} />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            mt: "2rem",
-            rowGap: "1.5rem",
-          }}
-        >
-          <Link to={resumeUrl}>
-            <Avatar
-              src={resume}
-              variant="rounded"
-              sx={{
-                width: { xs: "6rem", sm: "7.5rem" },
-                height: { xs: "7.5rem", sm: "9rem" },
-              }}
-            />
-          </Link>
-          <FileUploadButton
-            name="Upload Resume"
-            file={updatedResume}
-            handleFileChange={uploadResume}
-          />
-        </Box>
-        <SaveButton
-          disableCondition={checkResumeUpdateStatus()}
-          handleClick={updateResume}
-        />
-      </>
-    ),
-  };
-
   useEffect(() => {
     checkIfProfileIsCompleted();
   }, [user]);
@@ -1103,10 +966,6 @@ const Profile = () => {
   useEffect(() => {
     getSocialLinks();
   }, [user, editSocials]);
-
-  useEffect(() => {
-    getUserResume();
-  }, [user, editResume]);
 
   return (
     <Box
@@ -1183,30 +1042,6 @@ const Profile = () => {
           Social Links
         </Typography>
         {editSocials ? social_links_states.edit : social_links_states.read}
-      </Paper>
-      <Paper
-        sx={{
-          width: "100%",
-          padding: { xs: "1rem", sm: "2rem" },
-          borderRadius: "1rem",
-          display: "grid",
-          placeItems: { xs: "center", sm: "flex-start" },
-          position: "relative",
-        }}
-      >
-        <Typography
-          sx={{
-            textAlign: { xs: "center", sm: "inherit" },
-            width: "100%",
-            fontFamily: "'Poppins', sans-serif;",
-            fontWeight: "500",
-            color: mode === "light" ? "#323130" : "inherit",
-            fontSize: "1.25rem",
-          }}
-        >
-          Resume
-        </Typography>
-        {editResume ? resume_states.edit : resume_states.read}
       </Paper>
     </Box>
   );
