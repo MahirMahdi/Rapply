@@ -917,9 +917,18 @@ const Profile = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sx={{ wordBreak: "break-word" }}>
-                  <Link
-                    to={checkData(value) === "Unavailable" ? "#" : value}
+                  <a
+                    href={
+                      checkData(value) === "Unavailable"
+                        ? "#"
+                        : value.startsWith("http://") ||
+                          value.startsWith("https://")
+                        ? value
+                        : `https://${value}`
+                    }
                     className="router-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Typography
                       sx={{
@@ -933,7 +942,7 @@ const Profile = () => {
                     >
                       {value}
                     </Typography>
-                  </Link>
+                  </a>
                 </Grid>
               </Grid>
             ))}
