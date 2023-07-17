@@ -74,18 +74,17 @@ export const FileUploadButton: React.FC<any> = ({
   handleFileChange,
   file,
   name,
-  type,
 }) => {
   return (
-    <label htmlFor="file-input">
+    <label htmlFor={name}>
       <input
         type="file"
         accept={
-          name !== "Upload Resume" || name !== "Resume"
+          name === "Upload Photo" || name === "Photo"
             ? ".jpg,.jpeg,.png,.gif"
             : "*"
         }
-        id="file-input"
+        id={name}
         style={{ display: "none" }}
         onChange={(e) => handleFileChange(e)}
       />
@@ -96,10 +95,10 @@ export const FileUploadButton: React.FC<any> = ({
         startIcon={
           !file ? (
             <CloudUpload />
-          ) : name === "Upload Resume" || name === "Resume" ? (
-            <DocumentScannerIcon />
-          ) : (
+          ) : name === "Photo" || name === "Upload Photo" ? (
             <ImageIcon />
+          ) : (
+            <DocumentScannerIcon />
           )
         }
       >
