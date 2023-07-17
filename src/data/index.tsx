@@ -3,11 +3,11 @@ import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 import f1 from "../assets/f1.png";
-import f2 from "../assets/f2.jpg";
-import f3 from "../assets/f3.jpg";
+import f2 from "../assets/f2.png";
+import f3 from "../assets/f3.png";
 import fd1 from "../assets/fd1.png";
-import fd2 from "../assets/fd2.jpg";
-import fd3 from "../assets/fd3.jpg";
+import fd2 from "../assets/fd2.png";
+import fd3 from "../assets/fd3.png";
 import arthur from "../assets/arthur.webp";
 import lena from "../assets/lena.webp";
 import olivia from "../assets/olivia.webp";
@@ -69,11 +69,11 @@ class FooterInfo {
 
 export const featuresDetails = [
   new Features(
-    "Resume Builder",
-    "Our resume builder creates professional resumes that highlight your skills, experience, and achievements, helping you stand out from the competition and land your dream job. ",
-    <EditNoteIcon />,
-    f1,
-    fd1
+    "Application Progress Tracker",
+    "Efficiently manage your job hunt by tracking application milestones and evaluating your application progress.",
+    <StackedLineChartIcon />,
+    f3,
+    fd3
   ),
   new Features(
     "Tailored Cover Letter",
@@ -83,11 +83,11 @@ export const featuresDetails = [
     fd2
   ),
   new Features(
-    "Application Progress Tracker",
-    "Efficiently manage your job hunt by tracking application milestones and evaluating your application progress.",
-    <StackedLineChartIcon />,
-    f3,
-    fd3
+    "Resume Builder",
+    "Our resume builder creates professional resumes that highlight your skills, experience, and achievements, helping you stand out from the competition and land your dream job. ",
+    <EditNoteIcon />,
+    f1,
+    fd1
   ),
 ];
 

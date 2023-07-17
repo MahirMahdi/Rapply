@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import MenuIcon from "@mui/icons-material/Menu";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
@@ -33,7 +33,9 @@ type Anchor = "top";
 const Home = () => {
   const { mode, setMode } = useColorMode();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const [selectedFeature, setSelectedFeature] = useState("Resume Builder");
+  const [selectedFeature, setSelectedFeature] = useState(
+    "Application Progress Tracker"
+  );
   const [navState, setNavState] = useState({
     top: false,
   });
@@ -605,9 +607,22 @@ const Home = () => {
               columnGap: "1rem",
             }}
           >
-            <TwitterIcon />
-            <GitHubIcon />
-            <LinkedInIcon />
+            <Link href="https://twitter.com/RapplyHQ" target="_blank">
+              <TwitterIcon
+                sx={{
+                  color: mode === "dark" ? "#fff" : "#000",
+                  "&:hover": { color: "#6505B0" },
+                }}
+              />
+            </Link>
+            <Link href="https://github.com/MahirMahdi/Rapply" target="_blank">
+              <GitHubIcon
+                sx={{
+                  color: mode === "dark" ? "#fff" : "#000",
+                  "&:hover": { color: "#6505B0" },
+                }}
+              />
+            </Link>
           </Box>
         </Box>
       </footer>
