@@ -3,6 +3,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 const LightTheme = createTheme({
   palette: {
     secondary: { main: "#6505b0" },
+    error: { main: "#C21E56" },
     text: {
       primary: "#403f40",
       secondary: "#535253",
@@ -33,22 +34,13 @@ const LightTheme = createTheme({
         },
       },
     },
-    // MuiTableRow: {
-    //   styleOverrides: {
-    //     root: {
-    //       cursor: "pointer",
-    //       ":hover": {
-    //         backgroundColor: "#DBC4F0",
-    //       },
-    //     },
-    //   },
-    // },
   },
 });
 
 const DarkTheme = createTheme({
   palette: {
     secondary: { main: "#6505b0" },
+    error: { main: "#C21E56" },
     background: {
       default: "#121212",
     },
@@ -118,16 +110,21 @@ const DarkTheme = createTheme({
         },
       },
     },
-    // MuiTableRow: {
-    //   styleOverrides: {
-    //     root: {
-    //       cursor: "pointer",
-    //       ":hover": {
-    //         backgroundColor: "#937DC2",
-    //       },
-    //     },
-    //   },
-    // },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          "&::-webkit-scrollbar-track": {
+            background: "#393E46",
+          },
+
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#000",
+            borderRadius: "20px",
+            border: "3px solid #393E46",
+          },
+        },
+      },
+    },
   },
 });
 

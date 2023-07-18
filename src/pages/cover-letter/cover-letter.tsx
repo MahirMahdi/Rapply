@@ -132,7 +132,7 @@ const CoverLetter = () => {
         const generic_prompt = `Generate a short and precise cover letter based on the job description. Job description: ${jobDescription.replace(
           /\n/g,
           " "
-        )}`;
+        )}.The cover letter should be divided into three paragraphs and should not exceed 750 characters.`;
 
         const personalised_prompt = `Generate a short and precise cover letter that showcases my skills, experience, and compatibility with the job description provided. My skills include ${skills.join(
           ", "
@@ -164,6 +164,13 @@ const CoverLetter = () => {
           resource: import.meta.env.VITE_APPWRITE_PERSONAL_INFO_COLLECTION_ID,
           values: { ...personalInfo, tokens: updated_tokens.toString() },
           id: user?.$id ?? "",
+          successNotification: (data, values, resource) => {
+            return {
+              message: "Thanks for being patient.",
+              description: "Successfully generated cover letter!",
+              type: "success",
+            };
+          },
         });
 
         const all_parts = response?.split("\n\n");

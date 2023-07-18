@@ -1,4 +1,5 @@
 import { Refine, Authenticated } from "@refinedev/core";
+import "./App.css";
 import {
   ErrorComponent,
   notificationProvider,
@@ -21,7 +22,6 @@ import "@fontsource-variable/lexend";
 import "@fontsource/poppins";
 import "swiper/css";
 import "swiper/css/pagination";
-import "./App.css";
 import "@fontsource/poppins/300.css";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
