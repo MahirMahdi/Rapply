@@ -63,7 +63,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
         </Button>
         <Box
           sx={{
-            width: "612px",
+            maxWidth: { xs: "612px", sm: "auto" },
             height: "792px",
             display: "flex",
             flexDirection: "column",
@@ -97,7 +97,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                columnGap: { xs: ".25rem", sm: ".5rem" },
+                columnGap: { xs: ".3rem", sm: ".5rem" },
               }}
             >
               {intro.map((item, i) => (
@@ -218,7 +218,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Source Sans Pro', sans-serif",
                           fontWeight: "600",
-                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          fontSize: { xs: ".3rem", sm: ".5rem" },
                         }}
                       >
                         {ex.from} - {ex.to}
@@ -229,7 +229,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         mt: { xs: ".1rem", sm: ".35rem" },
                         fontFamily: "'Source Sans Pro', sans-serif",
                         fontWeight: "300",
-                        fontSize: { xs: ".25rem", sm: ".45rem" },
+                        fontSize: { xs: ".3rem", sm: ".45rem" },
                       }}
                     >
                       {ex.description}
@@ -269,7 +269,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Source Sans Pro', sans-serif",
                           fontWeight: "600",
-                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          fontSize: { xs: ".3rem", sm: ".5rem" },
                         }}
                       >
                         2016-2019
@@ -280,7 +280,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         mt: { xs: ".1rem", sm: ".35rem" },
                         fontFamily: "'Source Sans Pro', sans-serif",
                         fontWeight: "300",
-                        fontSize: { xs: ".25rem", sm: ".45rem" },
+                        fontSize: { xs: ".3rem", sm: ".45rem" },
                       }}
                     >
                       It is a long established fact that a reader will be
@@ -358,7 +358,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Source Sans Pro', sans-serif",
                           fontWeight: "600",
-                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          fontSize: { xs: ".3rem", sm: ".5rem" },
                         }}
                       >
                         {project.from} - {project.to}
@@ -366,10 +366,10 @@ const ResumeTemplateTwo: React.FC<any> = ({
                     </Box>
                     <Box
                       sx={{
-                        mt: { xs: ".25rem", sm: ".35rem" },
+                        mt: { xs: ".3rem", sm: ".35rem" },
                         fontFamily: "'Source Sans Pro', sans-serif",
                         fontWeight: "300",
-                        fontSize: { xs: ".25rem", sm: ".45rem" },
+                        fontSize: { xs: ".3rem", sm: ".45rem" },
                       }}
                     >
                       {project.description}
@@ -409,7 +409,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Source Sans Pro', sans-serif",
                           fontWeight: "600",
-                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          fontSize: { xs: ".3rem", sm: ".5rem" },
                         }}
                       >
                         2016-2019
@@ -417,10 +417,10 @@ const ResumeTemplateTwo: React.FC<any> = ({
                     </Box>
                     <Box
                       sx={{
-                        mt: { xs: ".25rem", sm: ".35rem" },
+                        mt: { xs: ".3rem", sm: ".35rem" },
                         fontFamily: "'Source Sans Pro', sans-serif",
                         fontWeight: "300",
-                        fontSize: { xs: ".25rem", sm: ".45rem" },
+                        fontSize: { xs: ".3rem", sm: ".45rem" },
                       }}
                     >
                       It is a long established fact that a reader will be
@@ -498,7 +498,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Source Sans Pro', sans-serif",
                           fontWeight: "600",
-                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          fontSize: { xs: ".3rem", sm: ".5rem" },
                           placeSelf: "center",
                         }}
                       >
@@ -540,7 +540,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Source Sans Pro', sans-serif",
                           fontWeight: "600",
-                          fontSize: { xs: ".25rem", sm: ".5rem" },
+                          fontSize: { xs: ".3rem", sm: ".5rem" },
                           placeSelf: "center",
                         }}
                       >
@@ -591,7 +591,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                   sx={{
                     fontFamily: "'Source Sans Pro', sans-serif",
                     fontWeight: "600",
-                    fontSize: { xs: ".25rem", sm: ".5rem" },
+                    fontSize: { xs: ".3rem", sm: ".5rem" },
                   }}
                 >
                   {skills.map((skill: any, i: number) => {
@@ -607,7 +607,7 @@ const ResumeTemplateTwo: React.FC<any> = ({
                   sx={{
                     fontFamily: "'Source Sans Pro', sans-serif",
                     fontWeight: "600",
-                    fontSize: { xs: ".25rem", sm: ".5rem" },
+                    fontSize: { xs: ".3rem", sm: ".5rem" },
                   }}
                 >
                   Digital Marketing, Market Research, SEO, Email Marketing,

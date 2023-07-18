@@ -43,7 +43,7 @@ const ResumeTemplateOne: React.FC<any> = ({
         </Button>
         <Box
           sx={{
-            width: "612px",
+            maxWidth: { xs: "612px", sm: "auto" },
             height: "792px",
             display: "flex",
           }}
@@ -285,10 +285,10 @@ const ResumeTemplateOne: React.FC<any> = ({
             </Typography>
             <Typography
               sx={{
-                mt: { xs: ".25rem", sm: ".5rem" },
+                mt: { xs: ".3rem", sm: ".5rem" },
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: "300",
-                fontSize: { xs: ".25rem", sm: ".45rem" },
+                fontSize: { xs: ".3rem", sm: ".45rem" },
               }}
             >
               {summary?.description.length === 0
@@ -297,7 +297,7 @@ const ResumeTemplateOne: React.FC<any> = ({
             </Typography>
             <Typography
               sx={{
-                mt: { xs: ".25rem", sm: ".35rem" },
+                mt: { xs: ".3rem", sm: ".35rem" },
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: "600",
                 fontSize: { xs: ".35rem", sm: ".75rem" },
@@ -340,7 +340,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".5rem" },
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
                           }}
                         >
                           {ex.organization}
@@ -349,7 +349,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: { md: "300" },
-                            fontSize: { xs: ".225rem", sm: ".4rem" },
+                            fontSize: { xs: ".3rem", sm: ".4rem" },
                           }}
                         >
                           {ex.from} - {ex.to}
@@ -359,7 +359,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Poppins', sans-serif",
                           fontWeight: { xs: "500", md: "400" },
-                          fontSize: { xs: ".225rem", sm: ".35rem" },
+                          fontSize: { xs: ".3rem", sm: ".35rem" },
                         }}
                       >
                         {ex.description}
@@ -388,7 +388,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".5rem" },
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
                           }}
                         >
                           ABC Company
@@ -397,7 +397,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: { md: "300" },
-                            fontSize: { xs: ".225rem", sm: ".4rem" },
+                            fontSize: { xs: ".3rem", sm: ".4rem" },
                           }}
                         >
                           2016-2018
@@ -471,7 +471,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".5rem" },
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
                           }}
                         >
                           {project.organization}
@@ -480,7 +480,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "300",
-                            fontSize: { xs: ".225rem", sm: ".4rem" },
+                            fontSize: { xs: ".3rem", sm: ".4rem" },
                           }}
                         >
                           {project.from} - {project.to}
@@ -490,7 +490,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Poppins', sans-serif",
                           fontWeight: { xs: "500", md: "400" },
-                          fontSize: { xs: ".225rem", sm: ".35rem" },
+                          fontSize: { xs: ".3rem", sm: ".35rem" },
                         }}
                       >
                         {project.description}
@@ -520,7 +520,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".5rem" },
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
                           }}
                         >
                           Web Developer
@@ -529,7 +529,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "300",
-                            fontSize: { xs: ".225rem", sm: ".4rem" },
+                            fontSize: { xs: ".3rem", sm: ".4rem" },
                           }}
                         >
                           2016-2018
@@ -539,7 +539,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                         sx={{
                           fontFamily: "'Poppins', sans-serif",
                           fontWeight: { xs: "500", md: "400" },
-                          fontSize: { xs: ".225rem", sm: ".35rem" },
+                          fontSize: { xs: ".3rem", sm: ".35rem" },
                         }}
                       >
                         It is a long established fact that a reader will be
@@ -603,7 +603,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".45rem" },
+                            fontSize: { xs: ".3rem", sm: ".45rem" },
                           }}
                         >
                           {achievement.year} | {achievement.organization}
@@ -635,7 +635,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".45rem" },
+                            fontSize: { xs: ".3rem", sm: ".45rem" },
                           }}
                         >
                           2019 | ABCD Inc
@@ -689,7 +689,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".5rem" },
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
                           }}
                         >
                           {reference.job_title}, {reference.organization}
@@ -711,7 +711,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "600",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             Phone
@@ -719,7 +719,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "400",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             {reference.phone_number}
@@ -738,7 +738,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "600",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             Email
@@ -746,7 +746,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "400",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             {reference.email}
@@ -777,7 +777,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           sx={{
                             fontFamily: "'Poppins', sans-serif",
                             fontWeight: "400",
-                            fontSize: { xs: ".25rem", sm: ".5rem" },
+                            fontSize: { xs: ".3rem", sm: ".5rem" },
                           }}
                         >
                           Software Engineer, ABC Company
@@ -799,7 +799,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "600",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             Phone
@@ -807,7 +807,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "400",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             +2232132323
@@ -826,7 +826,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "600",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             Email
@@ -834,7 +834,7 @@ const ResumeTemplateOne: React.FC<any> = ({
                           <Typography
                             sx={{
                               fontWeight: "400",
-                              fontSize: { xs: ".225rem", sm: ".4rem" },
+                              fontSize: { xs: ".3rem", sm: ".4rem" },
                             }}
                           >
                             olivia@email.com
@@ -911,7 +911,7 @@ const sider_content_info_style = {
 
 const sider_content_main_box_style = {
   paddingLeft: {
-    xs: ".25rem",
+    xs: ".3rem",
     sm: ".45rem",
   },
   paddingTop: {
@@ -922,12 +922,12 @@ const sider_content_main_box_style = {
 
 const sider_content_sub_box_style = {
   paddingTop: {
-    xs: ".25rem",
+    xs: ".3rem",
     sm: ".45rem",
   },
   display: "grid",
   rowGap: {
-    xs: ".25rem",
+    xs: ".3rem",
     sm: ".35rem",
   },
 };

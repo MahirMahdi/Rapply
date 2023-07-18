@@ -3002,7 +3002,7 @@ const ResumeBuilder = () => {
             sx={{
               maxWidth: "100%",
               mt: "3.5rem",
-              padding: "2rem",
+              padding: selectedTab === "PREVIEW" ? "0" : "2rem",
               display: "grid",
               placeItems: "center",
             }}
