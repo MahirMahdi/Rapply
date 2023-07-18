@@ -182,6 +182,37 @@ const ResumeBuilder = () => {
   });
   const [referencesAlert, setReferencesAlert] = useState(false);
 
+  const disableAddEducation =
+    degree.school.length === 0 ||
+    degree.from === null ||
+    degree.to === null ||
+    degree.degree.length === 0;
+
+  const disableAddEmployment =
+    employment.organization.length === 0 ||
+    employment.position.length === 0 ||
+    employment.from === null ||
+    employment.to === null ||
+    employment.description.length === 0;
+
+  const disableAddProject =
+    project.organization.length === 0 ||
+    project.name.length === 0 ||
+    project.from === null ||
+    project.to === null ||
+    project.description.length === 0;
+
+  const disableAddAchievement =
+    achievement.name.length === 0 ||
+    achievement.organization.length === 0 ||
+    achievement.year === null;
+
+  const disableAddReference =
+    reference.email.length === 0 ||
+    reference.job_title.length === 0 ||
+    reference.name.length === 0 ||
+    reference.organization.length === 0;
+
   const selectTab = (name: string) => {
     setSelectedTab(name);
   };
@@ -1470,6 +1501,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={disableAddEducation}
             onClick={() =>
               updateEducationId.length > 0
                 ? updateEducationList()
@@ -1697,6 +1729,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={disableAddEmployment}
             onClick={() =>
               updateExperienceId.length > 0
                 ? updateExperienceList()
@@ -1922,6 +1955,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={disableAddProject}
             onClick={() =>
               updateProjectsId.length > 0
                 ? updateProjectsList()
@@ -2121,6 +2155,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={skill.skill.length === 0}
             onClick={() =>
               updateSkillsId.length > 0 ? updateSkillsList() : addToSkillsList()
             }
@@ -2250,6 +2285,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={language.language.length === 0}
             onClick={() =>
               updateLanguagesId.length > 0
                 ? updateLanguagesList()
@@ -2410,6 +2446,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={disableAddAchievement}
             onClick={() =>
               updateAchievementsId.length > 0
                 ? updateAchievementsList()
@@ -2651,6 +2688,7 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
+            disabled={disableAddReference}
             onClick={() =>
               updateReferencesId.length > 0
                 ? updateReferencesList()
