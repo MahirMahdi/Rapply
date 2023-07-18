@@ -80,7 +80,7 @@ const CoverLetterTemplateTwo: React.FC<any> = ({
       <Box sx={{ maxWidth: "100%" }}>
         <Box
           sx={{
-            width: "612px",
+            maxWidth: { xs: "612px", sm: "auto" },
             height: "792px",
             display: "flex",
             flexDirection: "column",

@@ -219,19 +219,19 @@ const CoverLetter = () => {
   return (
     <Box
       sx={{
-        mt: { xs: ".75rem", md: "0" },
+        mt: { xs: ".75rem", lg: "0" },
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
+        flexDirection: { xs: "column", lg: "row" },
         justifyContent: "space-between",
         rowGap: "5rem",
       }}
     >
       <Box
         sx={{
-          width: { md: "40%" },
-          height: { md: "100%" },
+          width: { lg: "35%", xl: "40%" },
+          height: { lg: "100%" },
           display: "flex",
           flexDirection: "column",
           rowGap: "1.5rem",
@@ -275,7 +275,7 @@ const CoverLetter = () => {
         )}
         {tab === "Personalised" && (
           <>
-            <Paper sx={{ width: "100%", padding: ".75rem 1rem" }}>
+            <Paper sx={{ width: "max-content", padding: ".75rem 1rem" }}>
               <Typography
                 sx={{
                   fontFamily: "'Poppins', sans-serif;",
@@ -357,7 +357,7 @@ const CoverLetter = () => {
       {coverLetter.length > 0 && (
         <Box
           sx={{
-            width: { md: "50%" },
+            width: { lg: "60%", xl: "50%" },
             display: "flex",
             flexDirection: "column",
           }}
