@@ -544,7 +544,7 @@ const Profile = () => {
                 fontSize: { xs: "1rem", sm: "1.25rem" },
               }}
             >
-              {user?.name}
+              {personalInfo.first_name + " " + personalInfo.last_name}
             </Typography>
             <Typography
               sx={{

@@ -11,7 +11,7 @@ import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
 import React, { useEffect, useState } from "react";
 import useColorMode from "../../hooks/useColorMode";
 import { User } from "../../interfaces";
-import { storage } from "../../utility";
+import { storage, database } from "../../utility";
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky = true,
@@ -19,6 +19,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   const { mode, setMode } = useColorMode();
   const [photo, setPhoto] = useState("");
   const { data: user } = useGetIdentity<User>();
+  const [username, setUsername] = useState("");
 
   const getUserPhoto = async () => {
     try {
@@ -33,8 +34,26 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
     }
   };
 
+  const getPersonalInformation = async () => {
+    if (user) {
+      try {
+        const response = await database.getDocument(
+          import.meta.env.VITE_APPWRITE_DATABASE_ID,
+          import.meta.env.VITE_APPWRITE_PERSONAL_INFO_COLLECTION_ID,
+          user.$id
+        );
+
+        const { first_name, last_name, ...rest } = response;
+        setUsername(first_name + " " + last_name);
+      } catch (error) {
+        return error;
+      }
+    }
+  };
+
   useEffect(() => {
     getUserPhoto();
+    getPersonalInformation();
   }, [user]);
 
   return (
@@ -69,28 +88,26 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                 alignItems="center"
                 justifyContent="center"
               >
-                {user?.name && (
-                  <Typography
-                    sx={{
-                      display: {
-                        xs: "none",
-                        sm: "inline-block",
-                      },
-                    }}
-                    variant="subtitle2"
-                  >
-                    {user?.name}
-                  </Typography>
-                )}
+                <Typography
+                  sx={{
+                    display: {
+                      xs: "none",
+                      sm: "inline-block",
+                    },
+                  }}
+                  variant="subtitle2"
+                >
+                  {username}
+                </Typography>
                 <Avatar
                   src={photo}
-                  alt={user?.name}
+                  alt={username}
                   sx={{
                     bgcolor: mode === "light" ? "#9BA4B4" : "#6505b0",
                     color: "#fff",
                   }}
                 >
-                  {user?.name.slice(0, 1)}
+                  {username.slice(0, 1)}
                 </Avatar>
               </Stack>
             )}

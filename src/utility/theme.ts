@@ -1,6 +1,15 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const LightTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1400,
+    },
+  },
   palette: {
     secondary: { main: "#6505b0" },
     error: { main: "#C21E56" },
@@ -38,6 +47,15 @@ const LightTheme = createTheme({
 });
 
 const DarkTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1400,
+    },
+  },
   palette: {
     secondary: { main: "#6505b0" },
     error: { main: "#C21E56" },
