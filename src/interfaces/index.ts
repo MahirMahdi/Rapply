@@ -171,25 +171,3 @@ export interface Summary {
   userId: string;
   description: string;
 }
-
-export interface UpdateApplicationData {
-  id: string;
-  userId: string;
-  organization: string;
-  status: string;
-  resumeId: string;
-  resume_url: string;
-  coverId: string;
-  cover_url: string;
-}
-
-export interface CreateApplicationData {
-  userId: string;
-  job_title: string;
-  organization: string;
-  status: string;
-  resumeId: string;
-  resume_url: string | null;
-  coverId: string;
-  cover_url: string | null;
-}

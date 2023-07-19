@@ -245,6 +245,11 @@ footer {
   footer {
     padding: 1rem;
   }
+
+  .video {
+    width: 360px;
+    height: 200px;
+  }
 }
 @media (min-width: 600px) and (max-width: 899px) {
   .navbar {
@@ -281,6 +286,11 @@ footer {
   .success-logo {
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  .video {
+    width: 480px;
+    height: 250px;
   }
 }
 @media (min-width: 900px) and (max-width: 1199px) {

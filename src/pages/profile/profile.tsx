@@ -19,9 +19,8 @@ import {
   EditButton,
   SaveButton,
   CloseButton,
-  FileUploadButton,
 } from "../../components/buttons/index";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { FaCoins } from "react-icons/fa";
 
