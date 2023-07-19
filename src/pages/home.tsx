@@ -22,17 +22,18 @@ import { Pagination } from "swiper";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Logo from "../components/logo";
 import FooterInfo from "../components/footer";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useLogin } from "@refinedev/core";
 import { LoginVariables } from "../interfaces";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Anchor = "top";
 
 const Home = () => {
   const { mode, setMode } = useColorMode();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState(
     "Application Progress Tracker"
   );
@@ -354,7 +355,7 @@ const Home = () => {
             </Button>
             <OutlinedButton
               active={null}
-              onClick={null}
+              onClick={() => setShowVideo(true)}
               href="#"
               name="Watch Video"
               logo={<PlayCircleIcon />}
@@ -441,7 +442,12 @@ const Home = () => {
         </Box>
         <Box
           sx={{
-            paddingX: paddingX,
+            paddingX: {
+              xs: ".5rem",
+              sm: "1.5rem",
+              md: "2.5rem",
+              lg: "3.5rem",
+            },
             display: "grid",
             rowGap: { xs: "1.5rem", md: "3.5rem" },
           }}
@@ -464,6 +470,13 @@ const Home = () => {
             }}
             modules={[Pagination]}
             className="mySwiper"
+            style={{
+              padding: "1rem",
+              paddingLeft: "1rem",
+              paddingRight: "3.5rem",
+              paddingBottom: "3.5rem",
+              // border: "1px solid red",
+            }}
           >
             {testimonials.map((testimonial, i) => {
               const { username, review, image } = testimonial;
@@ -623,6 +636,47 @@ const Home = () => {
                 }}
               />
             </Link>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backdropFilter:
+              "blur(2px)" /* Adjust the blur amount as per your preference */,
+            backgroundColor:
+              "rgba(255, 255, 255, 0.15)" /* Adjust the background color and opacity */,
+            zIndex: 10,
+            display: showVideo ? "flex" : "none",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              // width: "max-content",
+            }}
+          >
+            <IconButton
+              sx={{ placeSelf: "flex-end" }}
+              onClick={() => setShowVideo(false)}
+            >
+              <CloseIcon color="error" />
+            </IconButton>
+            <iframe
+              title="vimeo-player"
+              src="https://player.vimeo.com/video/846442284?h=97cf022b94"
+              width="640"
+              height="360"
+              className="video"
+              style={{ border: "0" }}
+              allowFullScreen
+            />
           </Box>
         </Box>
       </footer>
