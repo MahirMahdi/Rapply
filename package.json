@@ -29,6 +29,7 @@
     "openai": "^3.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-ga4": "^2.1.0",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.8.1",
@@ -56,7 +57,7 @@
     "build": "tsc && refine build",
     "preview": "refine start",
     "refine": "refine",
-    "postinstall": "node ./src/schema/init_database.js"
+    "initdb": "node ./src/schema/init_database.js"
   },
   "browserslist": {
     "production": [

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Refine, Authenticated } from "@refinedev/core";
 import "./App.css";
 import {
@@ -53,8 +54,18 @@ import CoverLetter from "./pages/cover-letter/cover-letter";
 import ResumeBuilder from "./pages/resume/resume-builder";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import ApplicationTracker from "./pages/application-tracker/application-tracker";
+import ReactGA from "react-ga4";
 
 function App() {
+  useEffect(() => {
+    ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
+
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname + window.location.search,
+      title: window.location.pathname,
+    });
+  }, []);
   return (
     <BrowserRouter>
       <ColorModeContextProvider>
