@@ -74,6 +74,10 @@ const tabs: Tabs = {
   ],
 };
 
+type Checkable = {
+  [key: string]: any;
+};
+
 const ResumeBuilder = () => {
   const { mode } = useColorMode();
   const { data: user } = useGetIdentity<User>({});
@@ -182,36 +186,97 @@ const ResumeBuilder = () => {
   });
   const [referencesAlert, setReferencesAlert] = useState(false);
 
-  const disableAddEducation =
-    degree.school.length === 0 ||
-    degree.from === null ||
-    degree.to === null ||
-    degree.degree.length === 0;
+  const areObjectsEqual = (obj1: any, obj2: any): boolean => {
+    const keys1 = Object.keys(obj1);
 
-  const disableAddEmployment =
-    employment.organization.length === 0 ||
-    employment.position.length === 0 ||
-    employment.from === null ||
-    employment.to === null ||
-    employment.description.length === 0;
+    for (const key of keys1) {
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
 
-  const disableAddProject =
-    project.organization.length === 0 ||
-    project.name.length === 0 ||
-    project.from === null ||
-    project.to === null ||
-    project.description.length === 0;
+    return true;
+  };
 
-  const disableAddAchievement =
-    achievement.name.length === 0 ||
-    achievement.organization.length === 0 ||
-    achievement.year === null;
+  const isObjectValid = (obj: Checkable): boolean => {
+    delete obj.userId;
 
-  const disableAddReference =
-    reference.email.length === 0 ||
-    reference.job_title.length === 0 ||
-    reference.name.length === 0 ||
-    reference.organization.length === 0;
+    const requiredKeys = Object.keys(obj);
+
+    for (const key of requiredKeys) {
+      const value = obj[key];
+
+      if (
+        value === null ||
+        value === undefined ||
+        (typeof value === "string" && value.trim().length === 0)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const updateDegree = education.filter(
+    (degree) => degree.id === updateEducationId
+  )[0];
+
+  const disableAddEducation = isObjectValid(degree);
+
+  const disableUpdateEducation =
+    updateDegree && areObjectsEqual(degree, updateDegree);
+
+  const updateEmployment = experience.filter(
+    (employment) => employment.id === updateExperienceId
+  )[0];
+
+  const disableAddExperience = isObjectValid(employment);
+
+  const disableUpdateExperience =
+    updateEmployment && areObjectsEqual(employment, updateEmployment);
+
+  const updateProject = projects.filter(
+    (project) => project.id === updateProjectsId
+  )[0];
+
+  const disableAddProject = isObjectValid(project);
+
+  const disableUpdateProject =
+    updateProject && areObjectsEqual(project, updateProject);
+
+  const updateSkill = skills.filter((skill) => skill.id === updateSkillsId)[0];
+
+  const disableAddSkill = isObjectValid(skill);
+
+  const disableUpdateSkill = updateSkill && areObjectsEqual(skill, updateSkill);
+
+  const updateLanguage = languages.filter(
+    (language) => language.id === updateLanguagesId
+  )[0];
+
+  const disableAddLanguage = isObjectValid(language);
+
+  const disableUpdateLanguage =
+    updateLanguage && areObjectsEqual(language, updateLanguage);
+
+  const updateAchievement = achievements.filter(
+    (achievement) => achievement.id === updateAchievementsId
+  )[0];
+
+  const disableAddAchievement = isObjectValid(achievement);
+
+  const disableUpdateAchievement =
+    updateAchievement && areObjectsEqual(achievement, updateAchievement);
+
+  const updateReference = references.filter(
+    (reference) => reference.id === updateReferencesId
+  )[0];
+
+  const disableAddReference = isObjectValid(reference);
+
+  const disableUpdateReference =
+    updateReference && areObjectsEqual(reference, updateReference);
 
   const selectTab = (name: string) => {
     setSelectedTab(name);
@@ -856,7 +921,7 @@ const ResumeBuilder = () => {
   };
 
   const addToLanguagesList = () => {
-    if (languages?.length === 10) {
+    if (languages?.length === 5) {
       setLanguagesAlert(true);
     } else {
       try {
@@ -1501,7 +1566,11 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={disableAddEducation}
+            disabled={
+              updateEducationId.length > 0
+                ? disableUpdateEducation
+                : disableAddEducation
+            }
             onClick={() =>
               updateEducationId.length > 0
                 ? updateEducationList()
@@ -1729,7 +1798,11 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={disableAddEmployment}
+            disabled={
+              updateExperienceId.length > 0
+                ? disableUpdateExperience
+                : disableAddExperience
+            }
             onClick={() =>
               updateExperienceId.length > 0
                 ? updateExperienceList()
@@ -1955,7 +2028,11 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={disableAddProject}
+            disabled={
+              updateProjectsId.length > 0
+                ? disableUpdateProject
+                : disableAddProject
+            }
             onClick={() =>
               updateProjectsId.length > 0
                 ? updateProjectsList()
@@ -2034,7 +2111,7 @@ const ResumeBuilder = () => {
                   sx={{
                     alignSelf: "flex-start",
                   }}
-                  onClick={() => removeFromExperienceList(project.id)}
+                  onClick={() => removeFromProjectsList(project.id)}
                 >
                   <DeleteIcon
                     sx={{
@@ -2155,7 +2232,9 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={skill.skill.length === 0}
+            disabled={
+              updateSkillsId.length > 0 ? disableUpdateSkill : disableAddSkill
+            }
             onClick={() =>
               updateSkillsId.length > 0 ? updateSkillsList() : addToSkillsList()
             }
@@ -2285,7 +2364,11 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={language.language.length === 0}
+            disabled={
+              updateLanguagesId.length > 0
+                ? disableUpdateLanguage
+                : disableAddLanguage
+            }
             onClick={() =>
               updateLanguagesId.length > 0
                 ? updateLanguagesList()
@@ -2446,7 +2529,11 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={disableAddAchievement}
+            disabled={
+              updateAchievementsId.length > 0
+                ? disableUpdateAchievement
+                : disableAddAchievement
+            }
             onClick={() =>
               updateAchievementsId.length > 0
                 ? updateAchievementsList()
@@ -2688,7 +2775,11 @@ const ResumeBuilder = () => {
           <Button
             variant="contained"
             color="secondary"
-            disabled={disableAddReference}
+            disabled={
+              updateReferencesId.length > 0
+                ? disableUpdateReference
+                : disableAddReference
+            }
             onClick={() =>
               updateReferencesId.length > 0
                 ? updateReferencesList()
@@ -2891,6 +2982,10 @@ const ResumeBuilder = () => {
       organization: "",
     });
   }, [user]);
+
+  useEffect(() => {
+    updateDegree && console.log(areObjectsEqual(degree, updateDegree));
+  }, [updateDegree, degree]);
 
   useEffect(() => {
     getEducation();
