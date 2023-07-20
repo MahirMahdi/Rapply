@@ -1,7 +1,7 @@
-import { Snackbar, Alert } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import React from "react";
 
-const CustomSnackbar: React.FC<any> = ({ type, open, close, message }) => {
+const CustomSnackbar: React.FC<any> = ({ open, close, message }) => {
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}

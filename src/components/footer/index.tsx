@@ -4,7 +4,7 @@ import { FooterInfoProps } from "../../interfaces";
 
 const FooterInfo: React.FC<FooterInfoProps> = ({ header, data }) => {
   return (
-    <Box sx={{ display: "grid", placeItems: "center", rowGap: ".5rem" }}>
+    <Box sx={{ display: "grid", rowGap: ".5rem" }}>
       <Typography
         sx={{
           fontFamily: "'Poppins', sans-serif;",
