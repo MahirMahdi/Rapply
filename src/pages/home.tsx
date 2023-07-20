@@ -670,11 +670,15 @@ const Home = () => {
             </IconButton>
             <iframe
               title="vimeo-player"
-              src="https://player.vimeo.com/video/846442284?h=97cf022b94"
+              src={
+                showVideo
+                  ? "https://player.vimeo.com/video/846442284?h=97cf022b94"
+                  : ""
+              }
               width="640"
               height="360"
+              style={{ border: "none" }}
               className="video"
-              style={{ border: "0" }}
               allowFullScreen
             />
           </Box>
