@@ -37,13 +37,34 @@ https://github.com/MahirMahdi/Rapply/assets/66949598/7317dfd4-38dc-4ae5-9e14-2a5
    ```sh
    git clone https://github.com/your_username_/Project-Name.git
    ```
-2. Install dependencies
+2. Change directory and install dependencies
    ```sh
+   cd rapply
    npm install
    ```
-3. Create a `.env` file and add all the necessary variables.
+3. Create a `.env`
+   ```
+   cp .env.example .env
+   ```
+4. Go to `.env` and fill up these credentials using your appwrite project details
+   ```
+   VITE_APPWRITE_API_ENDPOINT = 'YOUR_APPWRITE_API_ENDPOINT'
+   VITE_APPWRITE_PROJECT_ID = 'YOUR_APPWRITE_PROJECT_ID'
+   VITE_APPWRITE_API_KEY = 'YOUR_APPWRITE_API_KEY'
+   ```
+5. Now initialize the database
+   ```
+   npm run initdb
+   ```
+6. Go to your appwrite project dashboard and fill up rest of the credentials of `.env`
 
-4. Start Server
+7. Go to [OpenAI](https://openai.com/) and get your API key. After that paste it here
+
+   ```
+   VITE_OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY'
+   ```
+
+8. Now start the server
    ```sh
    npm start
    ```
@@ -76,7 +97,7 @@ https://github.com/MahirMahdi/Rapply/assets/66949598/7555ce12-3f46-43d8-a291-6b8
 
 ## License
 
-Distributed under the Apache License. See LICENSE.txt for more information.
+Distributed under the Apache License. See LICENSE for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
