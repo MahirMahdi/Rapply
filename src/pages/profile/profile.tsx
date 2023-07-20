@@ -23,6 +23,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { FaCoins } from "react-icons/fa";
+import CustomSnackbar from "../../components/resume/customSnackbar";
 
 const Profile = () => {
   const { mode } = useColorMode();
@@ -63,6 +64,11 @@ const Profile = () => {
   });
   const [updatedPhoto, setUpdatedPhoto] = useState<File | null>(null);
   const [updatedPhotoUrl, setUpdatedPhotoUrl] = useState<string | null>(null);
+  const [openUpdatePhotoSnackbar, setOpenUpdatePhotoSnackbar] = useState(false);
+
+  const closeUpdatePhotoSnackbar = () => {
+    setOpenUpdatePhotoSnackbar(false);
+  };
 
   const checkIfProfileIsCompleted = async () => {
     try {
@@ -135,17 +141,15 @@ const Profile = () => {
   };
 
   const getUserPhoto = async () => {
-    if (user) {
-      try {
-        const response = storage.getFilePreview(
-          import.meta.env.VITE_APPWRITE_BUCKET_ID,
-          user.prefs.photoId
-        );
+    try {
+      const response = storage.getFilePreview(
+        import.meta.env.VITE_APPWRITE_BUCKET_ID,
+        user?.prefs.photoId ?? ""
+      );
 
-        setPhoto(response.href);
-      } catch (error) {
-        return error;
-      }
+      setPhoto(response.href);
+    } catch (error) {
+      return error;
     }
   };
 
@@ -185,16 +189,17 @@ const Profile = () => {
   };
 
   const updatePhoto = async () => {
-    const prefs = user?.prefs;
-    const photoId = uuidv4();
-
     try {
+      const prefs = user?.prefs;
+      const photoId = uuidv4();
+
       if (prefs?.photoId !== "") {
+        await storage.deleteFile(
+          import.meta.env.VITE_APPWRITE_BUCKET_ID,
+          prefs?.photoId ?? ""
+        );
+
         updatedPhoto &&
-          (await storage.deleteFile(
-            import.meta.env.VITE_APPWRITE_BUCKET_ID,
-            prefs?.photoId ?? ""
-          )) &&
           (await storage.createFile(
             import.meta.env.VITE_APPWRITE_BUCKET_ID,
             photoId,
@@ -202,6 +207,7 @@ const Profile = () => {
           ));
         await account.updatePrefs({ ...prefs, photoId: photoId });
       } else {
+        console.log("check2");
         updatedPhoto &&
           (await storage.createFile(
             import.meta.env.VITE_APPWRITE_BUCKET_ID,
@@ -214,7 +220,9 @@ const Profile = () => {
       return error;
     }
 
-    setEditIntro(false);
+    setOpenUpdatePhotoSnackbar(true);
+
+    location.reload();
   };
 
   const changePersonalInfoState = (state: string) => {
@@ -960,7 +968,7 @@ const Profile = () => {
 
   useEffect(() => {
     getUserPhoto();
-  }, [user, editIntro]);
+  }, [user, editIntro, openUpdatePhotoSnackbar]);
 
   useEffect(() => {
     getSocialLinks();
@@ -1042,6 +1050,11 @@ const Profile = () => {
         </Typography>
         {editSocials ? social_links_states.edit : social_links_states.read}
       </Paper>
+      <CustomSnackbar
+        open={openUpdatePhotoSnackbar}
+        close={closeUpdatePhotoSnackbar}
+        message="Photo uploaded successfully!"
+      />
     </Box>
   );
 };

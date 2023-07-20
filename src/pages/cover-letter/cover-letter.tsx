@@ -275,7 +275,7 @@ const CoverLetter = () => {
         )}
         {tab === "Personalised" && (
           <>
-            <Paper sx={{ width: "max-content", padding: ".75rem 1rem" }}>
+            <Paper sx={{ width: "100%", padding: ".75rem 1rem" }}>
               <Typography
                 sx={{
                   fontFamily: "'Poppins', sans-serif;",
