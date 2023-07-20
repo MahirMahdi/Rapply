@@ -23,6 +23,7 @@ const ApplicationForm: React.FC<any> = ({
   handleSubmit,
   handleJobTitle,
   data,
+  disabled,
 }) => {
   const { organization, status, job_title } = data ?? {};
   return (
@@ -83,7 +84,7 @@ const ApplicationForm: React.FC<any> = ({
         <Button color="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button color="secondary" onClick={handleSubmit}>
+        <Button disabled={disabled} color="secondary" onClick={handleSubmit}>
           {buttonName}
         </Button>
       </DialogActions>

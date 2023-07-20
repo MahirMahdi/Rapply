@@ -30,6 +30,7 @@ const ApplicationTracker = () => {
   const [applications, setApplications] = useState<any>([]);
   const [loadApplications, setLoadApplications] = useState(false);
   const [deleteApplicationId, setDeleteApplicationId] = useState("");
+  const [updateApplicationId, setUpdateApplicationId] = useState("");
 
   const [applicationForm, setApplicationForm] = useState<any>({
     userId: "",
@@ -41,6 +42,20 @@ const ApplicationTracker = () => {
     resumeId: "",
     resume_url: null,
   });
+
+  const updateApplicationDocument = applications.filter(
+    (app: any) => app.$id === updateApplicationId
+  )[0];
+
+  const disableCreateApplication =
+    applicationForm.job_title.length === 0 ||
+    applicationForm.organization.length === 0 ||
+    applicationForm.status.length === 0;
+
+  const disableUpdateApplication =
+    updateApplicationDocument?.job_title === applicationForm.job_title &&
+    applicationForm.organization === updateApplicationDocument?.organization &&
+    applicationForm.status === updateApplicationDocument?.status;
 
   const createOrganizationName = (e: ChangeEvent<HTMLInputElement>) => {
     setApplicationForm({ ...applicationForm, organization: e.target.value });
@@ -392,6 +407,7 @@ const ApplicationTracker = () => {
                   $collectionId,
                   ...rest
                 } = app;
+                setUpdateApplicationId(app.$id);
                 setOpenUpdateForm(true);
                 setApplicationForm(rest);
               }}
@@ -426,6 +442,7 @@ const ApplicationTracker = () => {
         handleSubmit={createApplication}
         buttonName="Create"
         title="Track your application"
+        disabled={disableCreateApplication}
       />
       <ApplicationForm
         handleCover={uploadCover}
@@ -441,6 +458,7 @@ const ApplicationTracker = () => {
         handleClose={closeUpdateForm}
         title="Update your application"
         buttonName="Update"
+        disabled={disableUpdateApplication}
       />
       <ConfirmationDialogue
         open={openConfirmationDialogue}
