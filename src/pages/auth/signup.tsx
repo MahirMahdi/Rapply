@@ -6,11 +6,11 @@ import TextField from "@mui/material/TextField";
 import useColorMode from "../../hooks/useColorMode";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { account } from "../../utility";
+import { account, appwriteClient } from "../../utility";
 import { useRegister } from "@refinedev/core";
 import AuthLayout from "../../components/auth/layout";
 import { RegisterVariables } from "../../interfaces";
-
+import { OAuthProvider } from "appwrite";
 const Signup = () => {
   const { mode } = useColorMode();
   const { mutate: register } = useRegister<RegisterVariables>();
@@ -36,7 +36,8 @@ const Signup = () => {
   const handleGoogleAuth = () => {
     try {
       account.createOAuth2Session(
-        "google",
+        OAuthProvider.Google
+        ,
         `${import.meta.env.VITE_CLIENT_URL}/profile`
       );
     } catch (error) {

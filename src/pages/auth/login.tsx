@@ -10,6 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useLogin } from "@refinedev/core";
 import { account } from "../../utility";
 import { LoginVariables } from "../../interfaces";
+import { OAuthProvider } from "appwrite";
 
 const Login = () => {
   const { mode } = useColorMode();
@@ -33,7 +34,7 @@ const Login = () => {
   const handleGoogleAuth = () => {
     try {
       account.createOAuth2Session(
-        "google",
+         OAuthProvider.Google,
         `${import.meta.env.VITE_CLIENT_URL}/profile`
       );
     } catch (error) {
