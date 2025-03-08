@@ -2,12 +2,12 @@ import { AppwriteException } from "@refinedev/appwrite";
 import { AuthBindings } from "@refinedev/core";
 import { v4 as uuidv4 } from "uuid";
 import { account } from "./utility";
-import { AuthActionResponse } from "@refinedev/core/dist/interfaces";
+
 
 export const authProvider: AuthBindings = {
   login: async ({ email, password }) => {
     try {
-      await account.createEmailSession(email, password);
+      await account.createEmailPasswordSession(email, password);
       return {
         success: true,
         redirectTo: "/profile",
@@ -41,7 +41,7 @@ export const authProvider: AuthBindings = {
   register: async ({ email, password, name }) => {
     try {
       await account.create(uuidv4(), email, password, name);
-      await account.createEmailSession(email, password);
+      await account.createEmailPasswordSession(email, password);
       await account.createVerification(
         `${import.meta.env.VITE_CLIENT_URL}/complete/profile`
       );
@@ -105,7 +105,7 @@ export const authProvider: AuthBindings = {
   forgotPassword: async ({
     email,
     redirect_path,
-  }): Promise<AuthActionResponse> => {
+  }) => {
     try {
       await account.createRecovery(email, redirect_path);
       return {
@@ -128,9 +128,9 @@ export const authProvider: AuthBindings = {
     secret,
     password,
     confirmPassword,
-  }): Promise<AuthActionResponse> => {
+  })=> {
     try {
-      await account.updateRecovery(userId, secret, password, confirmPassword);
+      await account.updateRecovery(userId, secret, password);
       return {
         success: true,
         redirectTo: "/password-recovered",

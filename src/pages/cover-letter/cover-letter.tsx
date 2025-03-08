@@ -31,6 +31,7 @@ import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import { FaCoins } from "react-icons/fa";
 import CustomSnackbar from "../../components/resume/customSnackbar";
 import { BsArrowRepeat } from "react-icons/bs";
+import { log } from "console";
 
 const CoverLetter = () => {
   const { mode } = useColorMode();
@@ -107,7 +108,7 @@ const CoverLetter = () => {
           import.meta.env.VITE_APPWRITE_SOCIALS_COLLECTION_ID,
           user.$id
         );
-
+  
         const { twitter, github, portfolio, linkedin, ...rest } = response;
         setSocials({
           portfolio: portfolio,
@@ -118,48 +119,65 @@ const CoverLetter = () => {
       }
     }
   };
-
+  
   const generateCoverLetter = async () => {
     if (personalInfo && personalInfo.tokens > "1000") {
       setCoverLetter("Please be patient...");
       try {
-        const configuration = new Configuration({
-          apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+        const apiKey = import.meta.env.VITE_GEMINI_AI_API_KEY;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  
+        const generic_prompt = `Generate a professional and well-structured cover letter based on the provided job description. 
+        Job Description: ${jobDescription.replace(/\n/g, " ")}. 
+        Ensure the cover letter is unique each time, avoiding repetitive phrasing while maintaining a compelling tone. 
+        It should follow a three-paragraph format:  
+        1. An engaging introduction that briefly expresses enthusiasm for the role.  
+        2. A middle section that highlights relevant skills and experiences aligned with the job description.  
+        3. A strong closing that reiterates interest and invites further discussion.  
+        Keep the response within 1250 characters, ensuring clarity and conciseness.
+        4. Ensure the letter is unique each time, avoiding formulaic language. Don't add 'Dear Hiring Manager' or 'Best Regards' as they will be added automatically.`;  
+        
+        const personalised_prompt = `Generate a professional, tailored cover letter that effectively highlights my skills, experience, and alignment with the job description. 
+        Skills: ${skills.join(", ")}.  
+        Experience: ${description.replace(/\n/g, " ")}.  
+        Job Description: ${jobDescription.replace(/\n/g, " ")}.  
+        Ensure the letter is unique each time, avoiding formulaic language.  Don't add 'Dear Hiring Manager' or 'Best Regards' as they will be added automatically.  
+        Structure the response into three distinct paragraphs:  
+        1. A compelling introduction expressing enthusiasm and fit for the role.  
+        2. A middle section that demonstrates my qualifications with specific references to my skills and experience.  
+        3. A confident closing that reiterates interest and encourages further engagement.  
+        Limit the cover letter to 1250 characters while maintaining a polished and professional tone.`;  
+        
+        const prompt = tab === "personalised" ? personalised_prompt : generic_prompt;
+  
+        // Gemini AI API request
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [{ text: prompt }],
+              },
+            ],
+          }),
         });
-
-        const openai = new OpenAIApi(configuration);
-
-        const generic_prompt = `Generate a short and precise cover letter based on the job description. Job description: ${jobDescription.replace(
-          /\n/g,
-          " "
-        )}.The cover letter should be divided into three paragraphs and should not exceed 750 characters.`;
-
-        const personalised_prompt = `Generate a short and precise cover letter that showcases my skills, experience, and compatibility with the job description provided. My skills include ${skills.join(
-          ", "
-        )}, and I have gained valuable experience in ${description.replace(
-          /\n/g,
-          " "
-        )}. Please refer to the job description provided (${jobDescription.replace(
-          /\n/g,
-          " "
-        )}) to ensure the cover letter focuses solely on the relevant skills, experience, and qualifications. The cover letter should be divided into three paragraphs and should not exceed 750 characters.`;
-
-        const completion = await openai.createChatCompletion({
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a helpful assistant." },
-            {
-              role: "user",
-              content:
-                tab === "personalised" ? personalised_prompt : generic_prompt,
-            },
-          ],
-        });
-
-        const response = completion?.data.choices[0]?.message?.content;
-        const tokens = completion?.data.usage?.total_tokens;
-        const updated_tokens = Number(personalInfo?.tokens) - (tokens ?? 0);
-
+  
+        const data = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to generate cover letter");
+        }
+  
+        // Extract the generated text from the response
+        const generatedText = data.candidates[0]?.content?.parts[0]?.text || "";
+        console.log(data)
+        const tokens = data.usageMetadata?.totalTokens || 0; // Adjust based on the actual response structure
+        const updated_tokens = Number(personalInfo?.tokens) - tokens;
+  
+        // Update user's token balance
         updateOne({
           resource: import.meta.env.VITE_APPWRITE_PERSONAL_INFO_COLLECTION_ID,
           values: { ...personalInfo, tokens: updated_tokens.toString() },
@@ -172,13 +190,13 @@ const CoverLetter = () => {
             };
           },
         });
-
-        const all_parts = response?.split("\n\n");
-
+  
+        // Split the generated text into paragraphs
+        const all_parts = generatedText?.split("\n\n");
         const body = all_parts?.slice(1, -1).join("\n\n ");
-
-        setCoverLetter(response ?? "");
-        setBody(body ?? "");
+  
+        setCoverLetter(generatedText);
+        setBody(body);
       } catch (error) {
         console.log(error);
       }
@@ -502,7 +520,7 @@ const CoverLetter = () => {
                   linkedin={socials.linkedin}
                   portfolio={socials.portfolio}
                   intro={intro}
-                  body={body}
+                  body={coverLetter}
                   closing={closing}
                 />
               ) : (
@@ -511,7 +529,7 @@ const CoverLetter = () => {
                   linkedin={socials.linkedin}
                   portfolio={socials.portfolio}
                   intro={intro}
-                  body={body}
+                  body={coverLetter}
                   closing={closing}
                 />
               )

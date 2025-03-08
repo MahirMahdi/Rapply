@@ -3,7 +3,6 @@ import { Refine, Authenticated } from "@refinedev/core";
 import "./App.css";
 import {
   ErrorComponent,
-  notificationProvider,
   RefineSnackbarProvider,
   ThemedLayoutV2,
 } from "@refinedev/mui";
@@ -57,15 +56,7 @@ import ApplicationTracker from "./pages/application-tracker/application-tracker"
 import ReactGA from "react-ga4";
 
 function App() {
-  useEffect(() => {
-    ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
-
-    ReactGA.send({
-      hitType: "pageview",
-      page: window.location.pathname + window.location.search,
-      title: window.location.pathname,
-    });
-  }, []);
+  
   return (
     <BrowserRouter>
       <ColorModeContextProvider>
@@ -80,7 +71,6 @@ function App() {
               databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
             })}
             authProvider={authProvider}
-            notificationProvider={notificationProvider}
             routerProvider={routerBindings}
             resources={[
               {
@@ -125,7 +115,7 @@ function App() {
               <Route index element={<Home />} />
               <Route
                 element={
-                  <Authenticated fallback={<CatchAllNavigate to="/login" />}>
+                  <Authenticated key={"outlet"} fallback={<CatchAllNavigate to="/login" />}>
                     <Outlet />
                   </Authenticated>
                 }
@@ -143,7 +133,7 @@ function App() {
               </Route>
               <Route
                 element={
-                  <Authenticated fallback={<CatchAllNavigate to="/login" />}>
+                  <Authenticated key={"login"} fallback={<CatchAllNavigate to="/login" />}>
                     <ThemedLayoutV2
                       Sider={ThemedSiderV2}
                       Title={({ collapsed }) => <Title collapsed={collapsed} />}
@@ -170,7 +160,7 @@ function App() {
               </Route>
               <Route
                 element={
-                  <Authenticated fallback={<Outlet />}>
+                  <Authenticated key={"profile"} fallback={<Outlet />}>
                     <VerifyUser>
                       <NavigateToResource resource="profile" />
                     </VerifyUser>

@@ -34,7 +34,7 @@ const Login = () => {
     try {
       account.createOAuth2Session(
         "google",
-        `${import.meta.env.VITE_CLIENT_URL}/oauth/redirect`
+        `${import.meta.env.VITE_CLIENT_URL}/profile`
       );
     } catch (error) {
       console.log(error);
